@@ -8,13 +8,15 @@
 
 <meta charset="UTF-8">
 
-<title>Home Page</title>
+<title>spring mvc</title>
 
 </head>
 
 <body>
-<h1>Home</h1>
-<%@ include file="Menu.jsp" %>  
+<h1>Khóa học spring mvc</h1>
+<%@ include file="Menu.jsp" %> 
+
+
 
 </body>
 

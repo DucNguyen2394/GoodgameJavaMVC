@@ -7,6 +7,7 @@
     <title>Chỉnh sửa bài viết</title>
 </head>
 <body>
+<div class = "container-fluid mt-2"> 
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -101,6 +102,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
 	var editor = '';

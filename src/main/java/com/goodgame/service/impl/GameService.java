@@ -16,8 +16,7 @@ public class GameService implements IGameService {
 	private IGameDao gameDao;
 	
 	public List<GameModel> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return gameDao.findAll();
 	}
 
 }

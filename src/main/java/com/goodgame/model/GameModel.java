@@ -6,7 +6,7 @@ public class GameModel extends AbstractModel<GameModel> {
 	private String content;
 	private String description;
 	private String thumbnail;
-	private String platformId;
+	private Long platformId;
 	private Long categoryId;
 	public String getName() {
 		return name;
@@ -38,10 +38,10 @@ public class GameModel extends AbstractModel<GameModel> {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	public String getPlatformId() {
+	public Long getPlatformId() {
 		return platformId;
 	}
-	public void setPlatformId(String platformId) {
+	public void setPlatformId(Long platformId) {
 		this.platformId = platformId;
 	}
 	public Long getCategoryId() {

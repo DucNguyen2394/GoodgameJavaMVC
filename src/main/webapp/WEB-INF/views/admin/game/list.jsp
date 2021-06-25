@@ -24,8 +24,6 @@
 								<th>Name</th>
 								<th>Title</th>
 								<th>Description</th>
-								<th>Content</th>
-								<th>Thumbnail</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -33,16 +31,16 @@
 								<th>Name</th>
 								<th>Title</th>
 								<th>Description</th>
-								<th>Content</th>
-								<th>Thumbnail</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							<c:forEach var="item" items =${model.listResult}>
+							<c:forEach var="item" items ="${model.listResult}">
 								<tr>
 									<td>${item.name}</td>
+									<td>${item.title}</td>
+									<td>${item.description}</td>
 								</tr>
-							</c:forEach>												
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -50,9 +48,7 @@
 			<div class="card-footer small text-muted">Updated yesterday at
 				11:59 PM</div>
 		</div>
-
 		<p class="small text-center text-muted my-5">
 			<em>More table examples coming soon...</em>
 		</p>
-
 	</div>

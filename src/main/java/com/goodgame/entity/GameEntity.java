@@ -1,19 +1,36 @@
 package com.goodgame.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "game")
 public class GameEntity {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "content")
 	private String content;
+	
+	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "thumbnail")
 	private String thumbnail;
 	
+	public Long getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}

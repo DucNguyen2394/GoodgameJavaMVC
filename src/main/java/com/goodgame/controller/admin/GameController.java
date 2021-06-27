@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodgame.model.GameModel;
 import com.goodgame.service.IGameService;
 
-@Controller(value = "gameControllerOfAdmin")
+@Controller
 public class GameController {
 	
 	@Autowired

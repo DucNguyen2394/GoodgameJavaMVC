@@ -27,7 +27,6 @@ public class ApplicationContextConfig {
 	   public DataSource getDataSource() {
 	       BasicDataSource dataSource = new BasicDataSource();
 	  
-	       // Xem: datasouce-cfg.properties
 	       dataSource.setDriverClassName(env.getProperty("ds.database-driver"));
 	       dataSource.setUrl(env.getProperty("ds.url"));
 	       dataSource.setUsername(env.getProperty("ds.username"));
@@ -42,16 +41,14 @@ public class ApplicationContextConfig {
 	       System.out.println("## getSessionFactory .... ");
 	       try {
 	           Properties properties = new Properties();
-//	           properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-	           // Xem: ds-hibernate-cfg.properties
+//	           properties.setProperty("hibernate.hbm2ddl.auto", "create");
+	           properties.setProperty("hibernate.hbm2ddl.auto", "none");
 	           properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 	           properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 	           properties.put("current_session_context_class", env.getProperty("current_session_context_class"));
 	 
 	           LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-	 
-	           // Package contain entity classes
-	           // Package chứa các entity class.
+	
 	           factoryBean.setPackagesToScan(new String[] { "com.goodgame.entity" });
 	           factoryBean.setDataSource(dataSource);
 	           factoryBean.setHibernateProperties(properties);
@@ -67,7 +64,6 @@ public class ApplicationContextConfig {
 	       }
 	   }
 	   
-	   // Hibernate Transaction Manager
 	   @Autowired
 	   @Bean(name = "transactionManager")
 	   public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {

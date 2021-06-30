@@ -2,14 +2,14 @@ package com.goodgame.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.goodgame.model.GameModel;
+import com.goodgame.dto.GameDTO;
 
-public class GameMapper implements RowMapper<GameModel> {
+public class GameMapper implements RowMapper<GameDTO> {
 
 	@Override
-	public GameModel mapRow(ResultSet rs) {
+	public GameDTO mapRow(ResultSet rs) {
 		try {
-			GameModel games = new GameModel();
+			GameDTO games = new GameDTO();
 			games.setId(rs.getLong("id"));
 			games.setName(rs.getString("name"));
 			games.setTitle(rs.getString("title"));

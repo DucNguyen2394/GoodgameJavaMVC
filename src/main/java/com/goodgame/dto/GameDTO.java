@@ -1,28 +1,14 @@
-package com.goodgame.entity;
+package com.goodgame.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "game")
-public class GameEntity extends BaseEntity {
+public class GameDTO extends AbstractDTO<GameDTO> {
 	
-	@Column(name = "name")
 	private String name;
-	
-	@Column(name = "title")
 	private String title;
-	
-	@Column(name = "content")
 	private String content;
-	
-	@Column(name = "description")
 	private String description;
-	
-	@Column(name = "thumbnail")
 	private String thumbnail;
-	
+	private Long platformId;
+	private Long categoryId;
 	public String getName() {
 		return name;
 	}
@@ -53,5 +39,16 @@ public class GameEntity extends BaseEntity {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+	public Long getPlatformId() {
+		return platformId;
+	}
+	public void setPlatformId(Long platformId) {
+		this.platformId = platformId;
+	}
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
 }

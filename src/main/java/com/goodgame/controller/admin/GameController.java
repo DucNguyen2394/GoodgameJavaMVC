@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.goodgame.model.GameModel;
+import com.goodgame.dto.GameDTO;
 import com.goodgame.service.IGameService;
 
 @Controller
@@ -17,7 +16,7 @@ public class GameController {
 	private IGameService gameService;
 
    @RequestMapping(value = "admin/game/list", method = RequestMethod.GET)
-   public ModelAndView showList(@ModelAttribute("model") GameModel gameModel) {
+   public ModelAndView showList(@ModelAttribute("model") GameDTO gameModel) {
       ModelAndView mav = new ModelAndView("/admin/game/list");
       
       gameModel.setListResult(gameService.findAll());

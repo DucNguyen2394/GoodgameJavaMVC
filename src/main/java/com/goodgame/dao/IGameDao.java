@@ -1,9 +1,8 @@
 package com.goodgame.dao;
 
 import java.util.List;
+import com.goodgame.dto.GameDTO;
 
-import com.goodgame.model.GameModel;
-
-public interface IGameDao extends GenericDao<GameModel> {
-	List<GameModel> findAll();
+public interface IGameDao extends GenericDao<GameDTO> {
+	List<GameDTO> findAll();
 }

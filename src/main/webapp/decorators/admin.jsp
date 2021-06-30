@@ -33,7 +33,7 @@
 		<%@ include file="/common/admin/menu.jsp"%>
 		<dec:body />
 	</div>
-	
+		
 	<%@ include file="/common/admin/footer.jsp"%>
 
 	<!-- Bootstrap core JavaScript-->

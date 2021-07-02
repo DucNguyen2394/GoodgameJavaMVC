@@ -64,6 +64,7 @@ public class ApplicationContextConfig {
 	       }
 	   }
 	   
+	   
 	   @Autowired
 	   @Bean(name = "transactionManager")
 	   public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {

@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,23 +16,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	
-	@Column(name = "username", nullable = false, unique = true)
+	@Column(name = "username")
 	private String username;
 	
-	@Column(name = "fullname", nullable = false)
+	@Column(name = "fullname")
 	private String fullname;
 	
-	@Column(name = "age", nullable = false)
+	@Column(name = "age")
 	private Integer age;
 	
-	@Column(name = "address", nullable = false, unique = true)
+	@Column(name = "address")
 	private String address;
 	
-	@Column(name = "password", nullable = false, length = 64)
+	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "status", nullable = false)
+	@Column(name = "status")
 	private Integer status;
+	
+	private String passwordConfirm;
 	
 	@Autowired
 	@ManyToMany
@@ -77,6 +80,15 @@ public class UserEntity extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	@Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 
 	public Integer getStatus() {
 		return status;

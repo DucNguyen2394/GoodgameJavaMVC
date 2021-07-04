@@ -7,23 +7,28 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true">
-        <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/welcome" access="hasRole('ROLE_USER')"/>
-        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
-        <logout logout-success-url="/login?logout" />
+    <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
+    
+    	<intercept-url pattern="/admin" access="hasAnyRole('ADMIN')" />
+    	
+    	<access-denied-handler error-page="/accessDenied" />
+        <form-login  login-page="/login"
+                     username-parameter="j_username"
+                     password-parameter="j_password"
+                     login-processing-url="/j_spring_security_check"
+                     authentication-success-handler-ref="customSuccessHandler"
+                     authentication-failure-url="/login?incorrectAccount"/>
+        <session-management invalid-session-url="/login?sessionTimeout"/>
+        <logout delete-cookies="JSESSIONID"/>
     </http>
 
-    <authentication-manager alias="authenticationManager">
+    <authentication-manager >
         <authentication-provider user-service-ref="userDetailsServiceImpl">
-            <password-encoder ref="encoder"></password-encoder>
+        		<password-encoder ref="bcryptEncoder"/>
         </authentication-provider>
     </authentication-manager>
-
-    <beans:bean id="userDetailsServiceImpl" class="com.goodgame.service.impl.UserDetailsServiceImpl"></beans:bean>
-
-    <beans:bean id="encoder"
-          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <beans:constructor-arg name="strength" value="11"/>
-    </beans:bean>
+<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+<beans:bean id="userDetailsServiceImpl" class="com.goodgame.service.impl.UserDetailsServiceImpl" />    
+<beans:bean id="customSuccessHandler" class="com.goodgame.security.CustomSuccessHandler" />
+    
 </beans:beans>

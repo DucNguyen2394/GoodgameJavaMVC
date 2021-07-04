@@ -2,9 +2,6 @@ package com.goodgame.service.impl;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.goodgame.entity.UserEntity;
@@ -24,11 +21,12 @@ public class UserServiceImpl implements UserService {
     
 	@Override
 	public void save(UserEntity user) {
-		
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(new ArrayList<>(roleRepository.findAll()));
+        userRepository.save(user);
 	}
 	@Override
 	public UserEntity findByUsername(String username) {
-		
 		return null;
 	}
 }

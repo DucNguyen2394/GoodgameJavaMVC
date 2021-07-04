@@ -9,10 +9,15 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.goodgame.constant.SystemConstant;
 import com.goodgame.entity.RoleEntity;
 import com.goodgame.entity.UserEntity;
 import com.goodgame.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
@@ -21,7 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userEntity = userRepository.findByUsername(username);
+		UserEntity userEntity = userRepository.findByUsernameAndStatus(username,SystemConstant.ACTIVE_STATUS);
+		if(userEntity == null) {
+			throw new UsernameNotFoundException("User not found!!!");
+		}
+		
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		for(RoleEntity role : userEntity.getRoles()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(role.getCode()));

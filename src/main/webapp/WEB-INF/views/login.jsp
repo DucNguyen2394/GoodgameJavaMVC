@@ -1,7 +1,6 @@
 <%@include file="/common/Taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,16 +23,16 @@
 							Username or password incorrect!
 					</div>
 			</c:if>
-				<form action="/j_spring_security_check" method="post">
+				<form action="j_spring_security_check" method="post">
 					<div class="form-group">
 						<div class="form-label-group">
-							<input type="text" id="inputEmail" class="form-control" placeholder="username" required="required" autofocus="autofocus" name="username"> 
+							<input type="text" id="inputEmail" class="form-control" placeholder="username" required="required" autofocus="autofocus" name="j_username"> 
 								<label for="inputEmail">Username</label>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-label-group">
-							<input type="password" id="inputPassword" class="form-control"  placeholder="Password" required="required" name="password"> 
+							<input type="password" id="inputPassword" class="form-control"  placeholder="Password" required="required" name="j_password"> 
 							<label for="inputPassword">Password</label>
 						</div>
 					</div>

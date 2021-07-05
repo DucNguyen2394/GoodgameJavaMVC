@@ -12,9 +12,11 @@
     
 	<import resource="appconfig-data.xml"/>
 
+    <!-- <import resource="appconfig-security.xml"/> -->
+   
     <import resource="appconfig-security.xml"/>
     
 	<!-- Activates scanning of @Repository and @Service and @Component -->
-	<context:component-scan base-package="com.goodgame.*" />
+	<context:component-scan base-package="com.goodgame" />
 	<context:property-placeholder location="classpath:datasource-cfg.properties"/>
 </beans>

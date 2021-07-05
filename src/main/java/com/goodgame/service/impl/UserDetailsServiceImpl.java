@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.goodgame.constant.SystemConstant;
 import com.goodgame.entity.RoleEntity;
 import com.goodgame.entity.UserEntity;
@@ -26,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userEntity = userRepository.findByUsernameAndStatus(username,SystemConstant.ACTIVE_STATUS);
+		UserEntity userEntity = userRepository.findOneByUsernameAndStatus(username,SystemConstant.ACTIVE_STATUS);
 		if(userEntity == null) {
 			throw new UsernameNotFoundException("User not found!!!");
 		}
@@ -37,6 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		User user = new User(userEntity.getUsername(),userEntity.getPassword(), grantedAuthorities);
+		
 		return user;
 	}
 

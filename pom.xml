@@ -9,7 +9,7 @@
 
 	<properties>
 		<servlet.api.version>3.1.0</servlet.api.version>
-		<springframework.version>4.2.0.RELEASE</springframework.version>
+		<springframework.version>4.3.13.RELEASE</springframework.version>
 		<springsecurity.version>3.2.8.RELEASE</springsecurity.version>
 		<jsp.api.version>2.3.1</jsp.api.version>
 		<jstl.version>1.2</jstl.version>
@@ -155,6 +155,35 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data}</version>
 		</dependency>
+		
+		<!-- json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<!--end json -->
 
 		<!-- Commons DataSources -->
 		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
@@ -163,12 +192,13 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-		</dependency>
+		</dependency>		
+
 	</dependencies>
 	<build>
 		<plugins>

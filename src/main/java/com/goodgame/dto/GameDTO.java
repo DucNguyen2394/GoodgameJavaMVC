@@ -9,6 +9,7 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	private String thumbnail;
 	private Long platformId;
 	private Long categoryId;
+	
 	public String getName() {
 		return name;
 	}

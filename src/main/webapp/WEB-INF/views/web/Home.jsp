@@ -20,7 +20,7 @@
 		<security:authorize access = "isAnonymous()">
 		
 		<li>Login</li>
-		<li>Register</li>
+		<li><a href="<c:url value='/register' />">Register</a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

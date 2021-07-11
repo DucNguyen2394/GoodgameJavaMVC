@@ -1,5 +1,4 @@
 <%@include file="/common/Taglib.jsp"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -20,53 +19,63 @@
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">Register an Account</div>
 			<div class="card-body">
-				<form>
+				<form:form action ="register" method="POST" modelAttribute="user">
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<div class="form-label-group">
-									<input type="text" id="firstName" class="form-control"
-										placeholder="First name" required="required"
-										autofocus="autofocus"> <label for="firstName">Fullname</label>
+								<div class="form-group">
+									<form:input type="text" id="firstName" path="fullname" class="form-control" placeholder="First name" required="required"/> 
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-label-group">
-									<input type="text" id="lastName" class="form-control"
-										placeholder="Last name" required="required"> <label
-										for="lastName">Username</label>
+								<div class="form-group">
+									<form:input type="text" id="lastName" path="username" class="form-control"
+										placeholder="Last name" required="required" />
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:input type="text" class="form-control" path="age" placeholder="Age" required="required"/> 
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:input type="text" class="form-control" path="address" placeholder="Address" required="required"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="form-group">
 						<div class="form-label-group">
-							<input type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" required="required"> <label
+							<form:input type="email" id="inputEmail" path="" class="form-control"
+								placeholder="Email address" required="required"/> <label
 								for="inputEmail">Email address</label>
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<div class="form-label-group">
-									<input type="password" id="inputPassword" class="form-control"
-										placeholder="Password" required="required"> <label
-										for="inputPassword">Password</label>
+								<div class="form-group">
+									<form:input type="password" id="inputPassword" path="password" class="form-control"
+										placeholder="Password" required="required"/>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<!-- <div class="col-md-6">
 								<div class="form-label-group">
 									<input type="password" id="confirmPassword"
 										class="form-control" placeholder="Confirm password"
 										required="required"> <label for="confirmPassword">Confirm
 										password</label>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
-					<button class="btn btn-primary btn-block">Register</button>
-				</form>
+					<button type="submit" class="btn btn-primary btn-block">Register</button>
+				</form:form>
 				<div class="text-center">
 					<a class="d-block small mt-3" href="/login">Login Page</a> <a
 						class="d-block small" href="#">Forgot Password?</a>

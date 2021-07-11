@@ -8,7 +8,16 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	private String description;
 	private String thumbnail;
 	private Long platformId;
+	private String platformCode;
 	private Long categoryId;
+	private String categoryCode;
+	
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
 	public String getName() {
 		return name;
 	}
@@ -51,4 +60,11 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
+	public String getPlatformCode() {
+		return platformCode;
+	}
+	public void setPlatformCode(String platformCode) {
+		this.platformCode = platformCode;
+	}
+	
 }

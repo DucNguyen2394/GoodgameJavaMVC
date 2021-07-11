@@ -2,32 +2,25 @@ package com.goodgame.controller.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.goodgame.entity.UserEntity;
 import com.goodgame.service.UserService;
-import com.goodgame.validator.UserValidator;
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
 
 	@Autowired
 	UserService userService;
-	 
-
-//	@Autowired
-//    private UserValidator userValidator;
-
+	
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView mav = new ModelAndView("/web/Home");
@@ -54,25 +47,21 @@ public class HomeController {
 		return new ModelAndView("redirect:/login?accessDenied");
 	}
 
-//
-//	@RequestMapping(value = "/register", method = RequestMethod.GET)
-//	public String register(Model model) {
-//		model.addAttribute("userForm", new UserEntity());
-//		return "register";
-//	}
 
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	   public String register(@ModelAttribute("userForm") UserEntity userForm, BindingResult bindingResult, Model model) {
-//			userValidator.validate(userForm, bindingResult);
-//			if (bindingResult.hasErrors()) {
-//	            return "register";
-//        }
-//		
-//			userService.save(userForm);
-//			
-//			securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-//			
-//			return "redirect:/trang-chu";
-//	   }
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView mav = new ModelAndView("/register");
+		mav.addObject("user", new UserEntity());
+		return mav;
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView createAccount(@ModelAttribute UserEntity user) {
+		ModelAndView mav = new ModelAndView("redirect:/trang-chu");
+		userService.save(user);
+		mav.addObject("status",true);
+		
+		return mav;
+	}
 
 }

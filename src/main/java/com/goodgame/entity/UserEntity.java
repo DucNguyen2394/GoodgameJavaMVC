@@ -9,32 +9,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	
+	@NotEmpty
+	@Pattern(regexp="[^0-9]+")
+	@Size(min=6,max=30)
 	@Column(name = "username")
 	private String username;
 	
+	@NotEmpty
 	@Column(name = "fullname")
 	private String fullname;
 	
+	@NotEmpty
 	@Column(name = "age")
 	private Integer age;
 	
+	@NotEmpty
 	@Column(name = "address")
 	private String address;
 	
+	@NotEmpty
 	@Column(name = "password")
 	private String password;
 	
+	@Size(min=1)
 	@Column(name = "status")
 	private Integer status;
-	
-//	private String passwordConfirm;
-	
+		
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<RoleEntity> roles = new ArrayList<>();
@@ -78,15 +88,6 @@ public class UserEntity extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-//	@Transient
-//    public String getPasswordConfirm() {
-//        return passwordConfirm;
-//    }
-//
-//    public void setPasswordConfirm(String passwordConfirm) {
-//        this.passwordConfirm = passwordConfirm;
-//    }
 
 	public Integer getStatus() {
 		return status;

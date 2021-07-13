@@ -20,7 +20,7 @@
 		</div></li>
 	<li class="nav-item"><a class="nav-link" href="charts.html"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>Charts</span></a></li>
-	<li class="nav-item active"><a class="nav-link" href="admin/game/list">
+	<li class="nav-item active"><a class="nav-link" href="http://localhost:8080/goodgame/admin/game/list">
 			<i class="fas fa-fw fa-table"></i> <span>Tables</span>
 	</a></li>
 </ul>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/Taglib.jsp"%>
+<c:url var="GameURL" value="http://localhost:8080/goodgame/admin/game/list" />
+<c:url var="GameAPI" value="http://localhost:8080/goodgame/api/game" />
 <html>
 <head>
 <title>Edit games</title>
@@ -15,19 +17,14 @@
 						} catch (e) {
 						}
 					</script>
-
 					<ul class="breadcrumb">
-						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
-						</li>
-
-						<li><a href="#">Forms</a></li>
-						<li class="active">Form Elements</li>
+						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a> </li>
 					</ul>
 					<!-- /.breadcrumb -->
 				</div>
-				<div class="page-content">
+				<div class="page-content" style="height: 1000px">
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-12">
 
 							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
 								<div class="form-group">
@@ -35,10 +32,7 @@
 									<div class="col-sm-9">
 										<form:select path="categoryCode" id="categoryCode">
 											<form:option value="" label="-- Choose category --" />
-											<c:forEach var ="item" items ="${categories}">
-												<option value="${item.code}" >${item.name}</option>
-											</c:forEach>
-											<form:options items="" />
+											<form:options items="${categories}"/>									
 										</form:select>
 									</div>
 								</div>
@@ -47,48 +41,51 @@
 									<div class="col-sm-9">
 										<form:select path="platformCode" id="platformCode">
 											<form:option value="" label="-- Choose platform --" />
-											<form:options items="" />
 										</form:select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Name's game</label>
-									<div class="col-sm-9">
-										<form:input path="title" cssClass="col-xs-10 col-sm-5" />${model.name}
+									<div class="col-md-12">
+										<form:input path="name" cssClass="col-xs-10 col-sm-5" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Title</label>
+									<div class="col-md-12">
+										<form:input path="title" cssClass="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Thumbnail</label>
 									<div class="col-sm-9">
-										<input type="file" class="col-xs-10 col-sm-5" id="thumbnail" name="thumbnail" />${model.thumbnail}
+										<input type="file" class="col-xs-10" id="thumbnail" name="thumbnail" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="shortDescription" class="col-sm-3 control-label no-padding-right">ShortDescription:</label>
 									<div class="col-sm-9">
-										<form:textarea path="description" rows="5" cols="10" cssClass="form-control" id="shortDescription" />${model.description }
+										<form:textarea path="description" rows="3" cols="10" cssClass="form-control" id="shortDescription" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="content" class="col-sm-3 control-label no-padding-right">Content:</label>
 									<div class="col-sm-9">
-										<form:textarea path="content" rows="5" cols="10" cssClass="form-control" id="content" />${model.content}
+										<form:textarea path="content" rows="5" cols="10" cssClass="form-control" id="content" />
 									</div>
 								</div>
-								<form:hidden path="id" id="newId" />
+								<form:hidden path="id" id="gameId"/>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
 										<c:if test="${not empty model.id }">
-											<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
+											<button class="btn btn-info" type="submit" id="btnAddOrUpdateGame">
 												<i class="ace-icon fa fa-check bigger-110"></i> Update game
 											</button>
-										
 										</c:if>
 										<c:if test="${empty model.id }">
-											<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
+											<button class="btn btn-info" type="submit" id="btnAddOrUpdateGame">
 												<i class="ace-icon fa fa-check bigger-110"></i> Create game
-											</button>
-										
+											</button>	
 										</c:if>
 										&nbsp; &nbsp; &nbsp;
 										<button class="btn" type="reset">
@@ -103,53 +100,56 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-	$('#btnAddOrUpdateNew').click(function (e) {
-	    e.preventDefault();
-	    var data = {};
-	    var formData = $('#formSubmit').serializeArray();
-	    $.each(formData, function (i, v) {
-            data[""+v.name+""] = v.value;
-        });
-	    var id = $('#newId').val();
-	    if (id == "") {
-	    	addNew(data);
-	    } else {
-	    	updateNew(data);
-	    }
-	});
-	
-	function addNew(data) {
-		$.ajax({
-            url: '${newAPI}',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (result) {
-            	window.location.href = "${editNewURL}?id="+result.id+"&message=insert_success";
-            },
-            error: function (error) {
-            	window.location.href = "${newURL}?page=1&limit=2&message=error_system";
-            }
-        });
-	}
-	
-	function updateNew(data) {
-		$.ajax({
-            url: '${newAPI}',
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (result) {
-            	window.location.href = "${editNewURL}?id="+result.id+"&message=update_success";
-            },
-            error: function (error) {
-            	window.location.href = "${editNewURL}?id="+result.id+"&message=error_system";
-            }
-        });
-	}
+	<script>
+		$('#formSubmit').on('submit', function (e) {
+			e.preventDefault();
+		    var data = {};
+		    var formData = $('#formSubmit').serializeArray();
+		    console.log(formData)
+		    $.each(formData, function (i, v) {
+	            data["" + v.name + ""] = v.value;
+	        });
+		    var id = $('#gameId').val();
+		    if (id == "") {
+		    	addGame(data);
+		    } else {
+		    	updateGame(data);
+		    }
+		});
+		
+		function addGame(data) {
+			$.ajax({
+	            url: '${GameAPI}',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	            	window.location.href = " ${GameURL} ";
+	            	console.log("thanh cong");
+	            },
+	            error: function (error) {
+	            	window.location.href = "${GameURL}";
+	            	console.log("that bai");
+	            }
+	        });
+		}
+		
+		function updateGame(data) {
+			$.ajax({
+	            url: '${GameAPI}',
+	            type: 'PUT',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	            	window.location.href = "${GameURL}";
+	            },
+	            error: function (error) {
+	            	window.location.href = "${GameURL}";
+	            }
+	        });
+		}
 	</script>
 </body>
 </html>

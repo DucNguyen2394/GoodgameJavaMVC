@@ -1,9 +1,7 @@
 package com.goodgame.service;
 
-import java.util.List;
-
-import com.goodgame.dto.CategoryDTO;
+import java.util.Map;
 
 public interface CategoryService {
-	List<CategoryDTO> findAll();
+	Map<String,String> findAll();
 }

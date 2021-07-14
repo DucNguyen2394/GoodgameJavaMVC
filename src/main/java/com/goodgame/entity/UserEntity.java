@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -37,10 +39,16 @@ public class UserEntity extends BaseEntity {
 	private String address;
 	
 	@NotEmpty
+	@Length(min = 6)
 	@Column(name = "password")
 	private String password;
 	
-	@Size(min=1)
+//	@Email
+//	@NotEmpty
+//	@Column(name = "email")
+//	private String email;
+
+	@Size(max=1)
 	@Column(name = "status")
 	private Integer status;
 		
@@ -71,6 +79,14 @@ public class UserEntity extends BaseEntity {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
 
 	public String getAddress() {
 		return address;

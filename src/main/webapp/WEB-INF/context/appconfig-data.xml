@@ -51,7 +51,6 @@
 	<!-- Configure Spring Data JPA and set the base package of the repository 
 		interfaces -->
 
-	<jpa:repositories
-		base-package="com.goodgame.repository" />
+	<jpa:repositories base-package="com.goodgame.repository" />
 
 </beans>

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodgame.dto.GameDTO;
 import com.goodgame.service.CategoryService;
 import com.goodgame.service.GameService;
+import com.goodgame.service.PlatformService;
 
 @Controller
 public class GameController {
@@ -19,6 +20,9 @@ public class GameController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private PlatformService platformService;
 
    @RequestMapping(value = "admin/game/list", method = RequestMethod.GET)
    public ModelAndView showList(@ModelAttribute("model") GameDTO gameModel) {
@@ -39,6 +43,7 @@ public class GameController {
     	  model = gameService.findById(id);
       }
       mav.addObject("categories", categoryService.findAll());
+      mav.addObject("platforms", platformService.findAll());
       mav.addObject("model", model);
       return mav;
    }

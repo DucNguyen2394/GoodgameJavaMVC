@@ -7,11 +7,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodgame.dto.UserDTO;
 import com.goodgame.entity.UserEntity;
 import com.goodgame.service.UserService;
 
@@ -48,20 +53,29 @@ public class HomeController {
 	}
 
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/register", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView("/register");
-		mav.addObject("user", new UserEntity());
+		mav.addObject("form", new UserEntity());
 		return mav;
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView createAccount(@ModelAttribute UserEntity user) {
-		ModelAndView mav = new ModelAndView("redirect:/trang-chu");
-		userService.save(user);
-		mav.addObject("status",true);
-		
-		return mav;
-	}
+//	@PostMapping(value = "/account/register")
+//	public String createAccount(Model model, @Validated @ModelAttribute("form") UserEntity user, BindingResult errors) {
+//
+//		if(errors.hasErrors()) {
+//			model.addAttribute("message","Please fix some following errors");
+//			return "/account/register";
+//		}else {
+//			UserDTO userDto = userService.findByUsername(user.getUsername());
+//			if(userDto != null) {
+//				model.addAttribute("message", "Username is in used");
+//				return "/account/register";
+//			}
+//		}
+//		
+//		
+//		return "redirect:/trang-chu";
+//	}
 
 }

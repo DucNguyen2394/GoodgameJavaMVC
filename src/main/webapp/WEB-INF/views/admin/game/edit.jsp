@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/Taglib.jsp"%>
-<c:url var="GameURL" value="http://localhost:8080/goodgame/admin/game/list" />
-<c:url var="GameAPI" value="http://localhost:8080/goodgame/api/game" />
+<c:url var="gameURL" value="http://localhost:8080/goodgame/admin/game/list" />
+<c:url var="gameAPI" value="http://localhost:8080/goodgame/api/game" />
 <html>
 <head>
 <title>Edit games</title>
@@ -41,6 +41,7 @@
 									<div class="col-sm-9">
 										<form:select path="platformCode" id="platformCode">
 											<form:option value="" label="-- Choose platform --" />
+											<form:options items="${platforms}"/>
 										</form:select>
 									</div>
 								</div>
@@ -119,17 +120,17 @@
 		
 		function addGame(data) {
 			$.ajax({
-	            url: '${GameAPI}',
+	            url: 'http://localhost:8080/goodgame/api/user',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = " ${GameURL} ";
+	            	window.location.href = " ${gameURL} ";
 	            	console.log("thanh cong");
 	            },
 	            error: function (error) {
-	            	window.location.href = "${GameURL}";
+	            	window.location.href = "${gameURL}";
 	            	console.log("that bai");
 	            }
 	        });
@@ -137,16 +138,16 @@
 		
 		function updateGame(data) {
 			$.ajax({
-	            url: '${GameAPI}',
+	            url: 'http://localhost:8080/goodgame/api/game',
 	            type: 'PUT',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = "${GameURL}";
+	            	window.location.href = "${gameURL}";
 	            },
 	            error: function (error) {
-	            	window.location.href = "${GameURL}";
+	            	window.location.href = "${gameURL}";
 	            }
 	        });
 		}

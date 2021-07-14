@@ -1,12 +1,22 @@
 package com.goodgame.dto;
 
+
 public class UserDTO extends AbstractDTO<UserDTO>{
 	
 	private String username;
 	private String password;
 	private String fullname;
+	private String email;
 	private Integer age;
 	private String address;
+	private Integer status;
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -37,6 +47,12 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

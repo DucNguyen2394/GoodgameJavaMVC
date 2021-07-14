@@ -32,6 +32,7 @@ public class PlatformEntity extends BaseEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
 	@OneToMany(mappedBy = "platform")
 	private List<GameEntity> games = new ArrayList<>();
 

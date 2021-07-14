@@ -27,4 +27,12 @@ public class GameConverter {
 		result.setContent(gameDTO.getContent());
 		return result;
 	}
+	
+	public GameEntity toEntity(GameEntity result ,GameDTO gameDTO) {
+		result.setName(gameDTO.getName());
+		result.setTitle(gameDTO.getTitle());
+		result.setDescription(gameDTO.getDescription());
+		result.setContent(gameDTO.getContent());
+		return result;
+	}
 }

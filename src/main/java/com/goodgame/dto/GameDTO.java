@@ -1,5 +1,8 @@
 package com.goodgame.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameDTO extends AbstractDTO<GameDTO> {
 	
 	private String name;
@@ -11,6 +14,8 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	private String platformCode;
 	private Long categoryId;
 	private String categoryCode;
+	
+	private List<CategoryDTO> categories = new ArrayList<>();
 	
 	public String getCategoryCode() {
 		return categoryCode;
@@ -65,6 +70,12 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	}
 	public void setPlatformCode(String platformCode) {
 		this.platformCode = platformCode;
+	}
+	public List<CategoryDTO> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
 	}
 	
 }

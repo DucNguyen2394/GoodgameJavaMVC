@@ -3,6 +3,7 @@ package com.goodgame.dto;
 public class PlatformDTO extends AbstractDTO<PlatformDTO> {
 	private String name;
 	private String code;
+	
 	public String getName() {
 		return name;
 	}

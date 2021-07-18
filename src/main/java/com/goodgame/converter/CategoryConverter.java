@@ -19,7 +19,7 @@ public class CategoryConverter {
 		CategoryEntity result = new CategoryEntity();
 		result.setCode(categoryDTO.getCode());
 		result.setName(categoryDTO.getName());
-		
+	
 		return result;
 	}
 }

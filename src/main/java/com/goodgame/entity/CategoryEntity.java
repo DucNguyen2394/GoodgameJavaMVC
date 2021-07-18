@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,12 +32,24 @@ public class CategoryEntity extends BaseEntity {
 		this.code = code;
 	}
 	
-	@OneToMany(mappedBy = "category")
-	private List<GameEntity> games = new ArrayList<>();
+//	@OneToMany(mappedBy = "category")
+//	private List<GameEntity> games = new ArrayList<>();
+//	
+//	public List<GameEntity> getGames() {
+//		return games;
+//	}
+//	public void setGames(List<GameEntity> games) {
+//		this.games = games;
+//	}
 	
+	@ManyToMany(mappedBy = "categories")
+	private List<GameEntity> games = new ArrayList<>();
+
 	public List<GameEntity> getGames() {
 		return games;
 	}
 	public void setGames(List<GameEntity> games) {
 		this.games = games;
-	}}
+	}
+	
+}

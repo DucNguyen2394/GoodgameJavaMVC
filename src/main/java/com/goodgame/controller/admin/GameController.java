@@ -42,7 +42,7 @@ public class GameController {
       if(id != null) {
     	  model = gameService.findById(id);
       }
-      mav.addObject("categories", categoryService.findAll());
+      mav.addObject("categories", categoryService.findAl());
       mav.addObject("platforms", platformService.findAll());
       mav.addObject("model", model);
       return mav;

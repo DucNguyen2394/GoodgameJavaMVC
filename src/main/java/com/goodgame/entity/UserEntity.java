@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	
-	@NotEmpty
+	@NotEmpty(message = "ko duoc trung ky tu")
 	@Pattern(regexp="[^0-9]+")
 	@Size(min=6,max=30)
 	@Column(name = "username")
@@ -38,7 +38,7 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "address")
 	private String address;
 	
-	@NotEmpty
+	@NotEmpty(message = "it nhat 6 ky tu")
 	@Length(min = 6)
 	@Column(name = "password")
 	private String password;

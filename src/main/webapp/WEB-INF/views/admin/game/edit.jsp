@@ -30,10 +30,16 @@
 								<div class="form-group">
 									<label for="categoryCode" class="col-sm-3 control-label no-padding-right">Category:</label>
 									<div class="col-sm-9">
-										<form:select path="categoryCode" id="categoryCode">
+										<%-- <form:select path="categoryCode" id="categoryCode" multiple="true">
 											<form:option value="" label="-- Choose category --" />
 											<form:options items="${categories}"/>									
-										</form:select>
+										</form:select> --%>
+										<select class="form-control" id="categoryCode"  name="categoryCode" multiple>
+											<option value="" label="-- Choose category --" />
+										    <c:forEach var="item" items="${categories}">
+										        <option value="${item.code}">${item.name}</option>
+										    </c:forEach>
+										</select>
 									</div>
 								</div>
 								<div class="form-group">
@@ -101,7 +107,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
+	<script>		
 		$('#formSubmit').on('submit', function (e) {
 			e.preventDefault();
 		    var data = {};
@@ -120,7 +126,7 @@
 		
 		function addGame(data) {
 			$.ajax({
-	            url: 'http://localhost:8080/goodgame/api/user',
+	            url: 'http://localhost:8080/goodgame/api/game',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),

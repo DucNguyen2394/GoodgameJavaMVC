@@ -1,7 +1,6 @@
 package com.goodgame.converter;
 
 import org.springframework.stereotype.Component;
-
 import com.goodgame.dto.GameDTO;
 import com.goodgame.entity.GameEntity;
 
@@ -15,7 +14,11 @@ public class GameConverter {
 		result.setDescription(gameEntity.getDescription());
 		result.setContent(gameEntity.getContent());
 		result.setPlatformCode(gameEntity.getPlatform().getCode());
-		result.setCategoryCode(gameEntity.getCategoryEntity().getCode());
+//		result.setCategoryCode(gameEntity.getCategoryEntity().getCode());
+		
+		for(int i = 0; i< gameEntity.getCategories().size(); i++) {
+			result.setCategoryCode(gameEntity.getCategories().get(i).getCode());			
+		}
 		return result;
 	}
 	

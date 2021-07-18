@@ -55,12 +55,12 @@ public class GameServiceImpl implements GameService {
 		GameEntity gameEntity = new GameEntity();
 		if(dto.getId() != null) {
 			GameEntity oldGame = gameRepository.findOne(dto.getId());
-			oldGame.setCategoryEntity(categoryEntity);
+			oldGame.getCategories().add(categoryEntity);
 			oldGame.setPlatform(platformEntity);
 			gameEntity = gameConverter.toEntity(oldGame, dto);
 		}else {
 			gameEntity = gameConverter.toEntity(dto);
-			gameEntity.setCategoryEntity(categoryEntity);
+			gameEntity.getCategories().add(categoryEntity);
 			gameEntity.setPlatform(platformEntity);
 		}
 		return gameConverter.toDto(gameRepository.save(gameEntity));

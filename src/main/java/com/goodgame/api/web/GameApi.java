@@ -28,6 +28,6 @@ public class GameApi {
 	
 	@DeleteMapping("/api/game")
 	public void deleteGame(@RequestBody long[] ids) {
-		System.out.println(ids);
+		gameService.delete(ids);
 	}
 }

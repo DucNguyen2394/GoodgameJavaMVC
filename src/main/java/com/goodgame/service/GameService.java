@@ -8,4 +8,5 @@ public interface GameService {
 	List<GameDTO> findAll();
 	GameDTO findById(long id);
 	GameDTO save(GameDTO dto);
+	void delete(long[] ids);
 }

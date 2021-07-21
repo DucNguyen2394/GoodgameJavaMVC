@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/Taglib.jsp"%>
 <c:url var="gameURL" value="http://localhost:8080/goodgame/admin/game/list" />
+<c:url var="editGameURL" value="http://localhost:8080/goodgame/admin/game/edit"></c:url>
 <c:url var="gameAPI" value="http://localhost:8080/goodgame/api/game" />
 <html>
 <head>
@@ -25,7 +26,13 @@
 				<div class="page-content" style="height: 1000px">
 					<div class="row">
 						<div class="col-12">
-
+						
+							<c:if test="${not empty message }">
+								<div class="alert alert-${alert}">
+								 	<strong>${message}</strong>
+								</div>							
+							</c:if>
+							
 							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
 								<div class="form-group">
 									<label for="categoryCode" class="col-sm-3 control-label no-padding-right">Category:</label>
@@ -132,11 +139,11 @@
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = " ${gameURL} ";
+	            	window.location.href = " ${editGameURL}?id="+ result.id+ "&message=create_success ";
 	            	console.log("thanh cong");
 	            },
 	            error: function (error) {
-	            	window.location.href = "${gameURL}";
+	            	window.location.href = "${gameURL}?message=error_system";
 	            	console.log("that bai");
 	            }
 	        });
@@ -150,10 +157,10 @@
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = "${gameURL}";
+	            	window.location.href = "${editGameURL}?id="+ result.id+ "&message=update_success ";
 	            },
 	            error: function (error) {
-	            	window.location.href = "${gameURL}";
+	            	window.location.href = "${gameURL}?id="+ result.id +"&message=error_system";
 	            }
 	        });
 		}

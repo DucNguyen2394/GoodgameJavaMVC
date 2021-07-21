@@ -1,7 +1,9 @@
 package com.goodgame.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +39,7 @@ public class GameEntity extends BaseEntity {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "game_category", joinColumns = @JoinColumn(name = "gameId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
-	private List<CategoryEntity> categories = new ArrayList<>();
+	private Set<CategoryEntity> categories = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="platform_id")
@@ -86,12 +88,10 @@ public class GameEntity extends BaseEntity {
 	public void setPlatform(PlatformEntity platform) {
 		this.platform = platform;
 	}
-	public List<CategoryEntity> getCategories() {
+	public Set<CategoryEntity> getCategories() {
 		return categories;
 	}
-	public void setCategories(List<CategoryEntity> categories) {
+	public void setCategories(Set<CategoryEntity> categories) {
 		this.categories = categories;
 	}
-	
-	
 }

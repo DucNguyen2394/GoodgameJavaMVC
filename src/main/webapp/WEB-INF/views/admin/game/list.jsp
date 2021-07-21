@@ -1,7 +1,7 @@
 <%@include file="/common/Taglib.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<div id="content-wrapper">
 
+<div id="content-wrapper">
 	<div class="container-fluid">
 
 		<!-- Breadcrumbs-->
@@ -9,7 +9,13 @@
 			<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
 			<li class="breadcrumb-item active">Tables</li>
 		</ol>
-
+		
+		<c:if test="${not empty message }">
+			<div class="alert alert-${alert}">
+				<strong>${message}</strong>
+			</div>							
+		</c:if>
+		
 		<!-- DataTables Example -->
 		<div class="card mb-3">
 			<div class="card-header d-flex justify-content-between">
@@ -19,7 +25,7 @@
 						<div class="pull-right tableTools-container">
 							<div class="dt-buttons btn-overlap btn-group">
 								<c:url var="createNewURL" value="/admin/game/edit"/>
-									<a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='add game' href='${createNewURL}'>
+									<a class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='add game' href='${createNewURL}'>
 										<span>
 											<i class="fa fa-plus-circle bigger-110 purple"> Create game</i>
 										</span>
@@ -29,6 +35,7 @@
 						</div>
 					</div>
 			</div>
+			
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -64,6 +71,11 @@
 											title="update game" href='${updateNewURL}'><i class="fas fa-pen-alt"> Update</i>
 										</a>
 									</td>
+									<td>
+										<a class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip"
+											title="delete game" href='${updateNewURL}'><i class="fas fa-trash-alt"> Delete</i>
+										</a>
+									</td>
 								</tr>
 							</c:forEach>				
 						</tbody>
@@ -76,3 +88,10 @@
 			<em>More table examples coming soon...</em>
 		</p>
 	</div>
+</div>
+
+<script>
+	function warningBeforeDelete(){
+		
+	}
+</script>

@@ -1,7 +1,9 @@
 package com.goodgame.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,12 +45,12 @@ public class CategoryEntity extends BaseEntity {
 //	}
 	
 	@ManyToMany(mappedBy = "categories")
-	private List<GameEntity> games = new ArrayList<>();
+	private Set<GameEntity> games = new HashSet<>();;
 
-	public List<GameEntity> getGames() {
+	public Set<GameEntity> getGames() {
 		return games;
 	}
-	public void setGames(List<GameEntity> games) {
+	public void setGames(Set<GameEntity> games) {
 		this.games = games;
 	}
 	

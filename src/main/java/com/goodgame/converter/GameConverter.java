@@ -16,9 +16,15 @@ public class GameConverter {
 		result.setPlatformCode(gameEntity.getPlatform().getCode());
 //		result.setCategoryCode(gameEntity.getCategoryEntity().getCode());
 		
-		for(int i = 0; i< gameEntity.getCategories().size(); i++) {
-			result.setCategoryCode(gameEntity.getCategories().get(i).getCode());			
-		}
+//		for(int i = 0; i< gameEntity.getCategories().size(); i++) {
+//			result.setCategoryCode(gameEntity);			
+//		}
+		
+//		Iterator<CategoryEntity> iterator = (Iterator<CategoryEntity>) gameEntity.getCategories();
+//		while(iterator.hasNext()) {
+//			result.setCategoryCode(iterator.next().getCode());
+//		}
+		
 		return result;
 	}
 	

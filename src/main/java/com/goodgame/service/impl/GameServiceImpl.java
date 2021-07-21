@@ -66,4 +66,12 @@ public class GameServiceImpl implements GameService {
 		return gameConverter.toDto(gameRepository.save(gameEntity));
 	}
 
+	@Override
+	@Transactional
+	public void delete(long[] ids) {
+		for(long id : ids) {			
+			gameRepository.delete(id);
+		}
+	}
+
 }

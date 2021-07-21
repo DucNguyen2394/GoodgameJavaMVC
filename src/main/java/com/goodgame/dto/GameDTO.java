@@ -1,7 +1,9 @@
 package com.goodgame.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameDTO extends AbstractDTO<GameDTO> {
 	
@@ -15,7 +17,7 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	private Long categoryId;
 	private String categoryCode;
 	
-	private List<CategoryDTO> categories = new ArrayList<>();
+	private Set<CategoryDTO> categories = new HashSet<>();;
 	
 	public String getCategoryCode() {
 		return categoryCode;
@@ -71,10 +73,10 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	public void setPlatformCode(String platformCode) {
 		this.platformCode = platformCode;
 	}
-	public List<CategoryDTO> getCategories() {
+	public Set<CategoryDTO> getCategories() {
 		return categories;
 	}
-	public void setCategories(List<CategoryDTO> categories) {
+	public void setCategories(Set<CategoryDTO> categories) {
 		this.categories = categories;
 	}
 	

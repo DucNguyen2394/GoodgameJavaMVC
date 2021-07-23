@@ -1,6 +1,7 @@
 <%@include file="/common/Taglib.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-
+<c:url var="gameAPI" value="http://localhost:8080/goodgame/api/game" />
+<c:url var="gameURL" value="http://localhost:8080/goodgame/admin/game/list" />
 <div id="content-wrapper">
 	<div class="container-fluid">
 
@@ -38,9 +39,10 @@
 			
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-bordered" id="dataTable">
 						<thead>
 							<tr>
+								<th><input type="checkbox" id="checkAll"></th>
 								<th>Name</th>
 								<th>Title</th>
 								<th>Description</th>
@@ -50,6 +52,7 @@
 						</thead>
 						<tfoot>
 							<tr>
+								<th></th>
 								<th>Name</th>
 								<th>Title</th>
 								<th>Description</th>
@@ -60,6 +63,7 @@
 						<tbody>
 							<c:forEach var="item" items ="${model.listResult}">
 								<tr>
+									<td><input class="checkbox" onclick="toggleBtn()" type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
 									<td>${item.name}</td>
 									<td>${item.title}</td>
 									<td>${item.description}</td>
@@ -72,9 +76,9 @@
 										</a>
 									</td>
 									<td>
-										<a class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip"
-											title="delete game" href='${updateNewURL}'><i class="fas fa-trash-alt"> Delete</i>
-										</a>
+										<button class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip" onclick="warningBeforeDelete()" disabled
+											title="delete game" ><i class="fas fa-trash-alt"> Delete</i>
+										</button>
 									</td>
 								</tr>
 							</c:forEach>				
@@ -91,7 +95,51 @@
 </div>
 
 <script>
-	function warningBeforeDelete(){
-		
+
+	function toggleBtn(){
+		const checkBox = document.querySelector('.checkbox');
+		const deleteBtn = document.querySelector('.btn-delete');
+		  
+		  if (checkBox.checked) {
+			  deleteBtn.disabled = false;
+			  console.log("ok");
+		  } else {
+			  deleteBtn.disabled = true;
+		  }
 	}
+	
+	 function warningBeforeDelete(){
+		swal({
+		    title: "Are you sure to delete this  of ?",
+		    text: "Delete Confirmation?",
+		    type: "warning",
+		    showCancelButton: true,
+		    confirmButtonColor: "#DD6B55",
+		    confirmButtonText: "Delete",
+		    closeOnConfirm: false
+		  },
+		  function() {
+			  	const data = $('tbody input[type=checkbox]:checked').map(function (){
+			  		return $(this).val()
+			  	}).get();
+		    $.ajax({
+		        url: '${gameAPI}',
+		        type: "DELETE",
+		        contentType: 'application/json',
+		        data: JSON.stringify(data),
+		        success: function(result) {
+		        	window.location.href = "${gameURL}?message=delete_success";
+		        	console.log("dcm")
+		        }
+		      })
+		      .done(function(result) {
+		        swal("Deleted!", "Data successfully Deleted!", "success");
+		        
+		      })
+		      .error(function(result) {
+		        swal("Oops", "We couldn't connect to the server!", "error");
+		      });
+		  }
+		);
+	} 
 </script>

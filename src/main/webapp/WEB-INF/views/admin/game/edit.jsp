@@ -33,7 +33,7 @@
 								</div>							
 							</c:if>
 							
-							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
+							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model" enctype="multipart/form-data">
 								<div class="form-group">
 									<label for="categoryCode" class="col-sm-3 control-label no-padding-right">Category:</label>
 									<div class="col-sm-9">
@@ -71,7 +71,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Thumbnail</label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Choose file upload</label>
 									<div class="col-sm-9">
 										<input type="file" class="col-xs-10" id="thumbnail" name="thumbnail" />
 									</div>
@@ -163,6 +163,37 @@
 	            	window.location.href = "${gameURL}?id="+ result.id +"&message=error_system";
 	            }
 	        });
+		}
+		
+		$("#thumbnail").change(function (){
+			var dataArray = {}
+			var files = $(this)[0].files[0]
+			if(files != undefined){
+				var reader = new FileReader()
+				reader.onload = function(e){
+					  dataArray['base64'] = e.target.result
+					  dataArray['name'] = files.name
+				      upload(dataArray)
+				    };
+				reader.readAsDataURL(files)
+			}
+		})
+		
+		function upload(data){
+			$.ajax({
+				url: "http://localhost:8080/goodgame/api/upload",
+				type: 'POST',
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				dataType: 'json',
+				enctype: 'multipart/form-data',
+				success: function (result) {
+					console.log("success")
+				},
+				error: function (error) {
+	            	console.log("error")
+	            }
+			})
 		}
 	</script>
 </body>

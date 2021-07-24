@@ -20,10 +20,6 @@ public class GameConverter {
 //			result.setCategoryCode(gameEntity);			
 //		}
 		
-//		Iterator<CategoryEntity> iterator = (Iterator<CategoryEntity>) gameEntity.getCategories();
-//		while(iterator.hasNext()) {
-//			result.setCategoryCode(iterator.next().getCode());
-//		}
 		
 		return result;
 	}

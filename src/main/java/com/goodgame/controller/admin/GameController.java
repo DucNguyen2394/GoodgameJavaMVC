@@ -1,12 +1,11 @@
 package com.goodgame.controller.admin;
 
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,27 +32,29 @@ public class GameController {
 	private MessageUtils messageUtil;
 
    @RequestMapping(value = "admin/game/list", method = RequestMethod.GET)
-   public ModelAndView showList(@ModelAttribute("model") GameDTO gameModel,HttpServletRequest request) {
+   public ModelAndView showList(@RequestParam("page") int page, @RequestParam("limit") int limit 
+		   ,HttpServletRequest request) {
       ModelAndView mav = new ModelAndView("/admin/game/list");
       
-      gameModel.setListResult(gameService.findAll());
+      GameDTO model = new GameDTO();
+      
+      model.setPage(page);
+      model.setLimit(limit);
+      
+      Pageable pageable = new PageRequest(page, limit);
+      
+      model.setListResult(gameService.findAll(pageable));
+      model.setTotalItem(gameService.getTotalItem());
+      model.setTotalPage((int) Math.ceil((double) model.getTotalItem() /model.getLimit()));
+      
+      
       if(request.getParameter("message") != null) {
-//    	  if(request.getParameter("message").equals("update_success")) {
-//    		  mav.addObject("message", "update_success");
-//    		  mav.addObject("alert", "success");
-//    	  }else if(request.getParameter("message").equals("create_success")) {
-//    		  mav.addObject("message", "create_success");
-//    		  mav.addObject("alert", "success");
-//    	  }
-//    	  else if(request.getParameter("message").equals("error_system")) {
-//    		  mav.addObject("message", "error_system");
-//    		  mav.addObject("alert", "danger");
-//    	  }
+
     	  Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
     	  mav.addObject("message", message.get("message"));
     	  mav.addObject("alert", message.get("alert"));
       }
-      mav.addObject("model", gameModel);
+      mav.addObject("model", model);
       
       return mav;
    }
@@ -66,17 +67,7 @@ public class GameController {
     	  model = gameService.findById(id);
       }
       if(request.getParameter("message") != null) {
-//    	  if(request.getParameter("message").equals("update_success")) {
-//    		  mav.addObject("message", "update_success");
-//    		  mav.addObject("alert", "success");
-//    	  }else if(request.getParameter("message").equals("create_success")) {
-//    		  mav.addObject("message", "create_success");
-//    		  mav.addObject("alert", "success");
-//    	  }
-//    	  else if(request.getParameter("message").equals("error_system")) {
-//    		  mav.addObject("message", "error_system");
-//    		  mav.addObject("alert", "danger");
-//    	  }
+
     	  Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
     	  mav.addObject("message", message.get("message"));
     	  mav.addObject("alert", message.get("alert"));

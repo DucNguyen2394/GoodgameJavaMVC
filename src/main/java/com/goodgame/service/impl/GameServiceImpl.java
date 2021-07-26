@@ -3,6 +3,7 @@ package com.goodgame.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +32,11 @@ public class GameServiceImpl implements GameService {
 	@Autowired
 	private PlatformRepository platformRepository;
 	
-	public List<GameDTO> findAll() {
+	public List<GameDTO> findAll(Pageable pageable) {
 		List<GameDTO> dtos = new ArrayList<>();
-		List<GameEntity> entities = gameRepository.findAll();
+		
+		List<GameEntity> entities = gameRepository.findAll(pageable).getContent();
+		
 		for(GameEntity gameEntity : entities) {
 			GameDTO gameDTO = gameConverter.toDto(gameEntity);
 			dtos.add(gameDTO);
@@ -72,6 +75,12 @@ public class GameServiceImpl implements GameService {
 		for(long id : ids) {			
 			gameRepository.delete(id);
 		}
+	}
+
+	@Override
+	public int getTotalItem() {
+		
+		return (int) gameRepository.count();
 	}
 
 }

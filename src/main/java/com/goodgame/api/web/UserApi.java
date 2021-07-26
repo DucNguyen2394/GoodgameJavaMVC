@@ -30,7 +30,7 @@ public class UserApi {
 			model.addAttribute("message","Please fix some following errors");
 			return null;
 		}else {
-		user = userRepository.findOneByUsername(userDTO.getUsername());
+			user = userRepository.findOneByUsername(userDTO.getUsername());
 			
 			if(user != null) {
 				model.addAttribute("message", "Username is in used");

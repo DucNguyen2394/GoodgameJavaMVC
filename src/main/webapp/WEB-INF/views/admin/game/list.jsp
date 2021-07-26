@@ -36,56 +36,64 @@
 						</div>
 					</div>
 			</div>
-			
-			<div class="card-body">
-				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable">
-						<thead>
-							<tr>
-								<th><input type="checkbox" id="checkAll"></th>
-								<th>Name</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>update game</th>
-								<th>Delete game</th>
-							</tr>
-						</thead>
-						<tfoot>
-							<tr>
-								<th></th>
-								<th>Name</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>update game</th>
-								<th>Delete game</th>
-							</tr>
-						</tfoot>
-						<tbody>
-							<c:forEach var="item" items ="${model.listResult}">
+			<form action="<c:url value='/admin/game/list?${model.page}&limit=${model.limit }'/>" id="formSubmit" method="get">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered" id="dataTable">
+							<thead>
 								<tr>
-									<td><input class="checkbox" onclick="toggleBtn()" type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-									<td>${item.name}</td>
-									<td>${item.title}</td>
-									<td>${item.description}</td>
-									<td>
-										<c:url var="updateNewURL" value="/admin/game/edit">
-											<c:param name="id" value="${item.id}"/>															
-										</c:url>																
-										<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-											title="update game" href='${updateNewURL}'><i class="fas fa-pen-alt"> Update</i>
-										</a>
-									</td>
-									<td>
-										<button class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip" onclick="warningBeforeDelete()" disabled
-											title="delete game" ><i class="fas fa-trash-alt"> Delete</i>
-										</button>
-									</td>
+									<th><input type="checkbox" id="checkAll"></th>
+									<th>Name</th>
+									<th>Title</th>
+									<th>Description</th>
+									<th>update game</th>
+									<th>Delete game</th>
 								</tr>
-							</c:forEach>				
-						</tbody>
-					</table>
+							</thead>
+							<tfoot>
+								<tr>
+									<th></th>
+									<th>Name</th>
+									<th>Title</th>
+									<th>Description</th>
+									<th>update game</th>
+									<th>Delete game</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<c:forEach var="item" items ="${model.listResult}">
+									<tr>
+										<td><input class="checkbox" onclick="toggleBtn()" type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
+										<td>${item.name}</td>
+										<td>${item.title}</td>
+										<td>${item.description}</td>
+										<td>
+											<c:url var="updateNewURL" value="/admin/game/edit">
+												<c:param name="id" value="${item.id}"/>															
+											</c:url>																
+											<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+												title="update game" href='${updateNewURL}'><i class="fas fa-pen-alt"> Update</i>
+											</a>
+										</td>
+										<td>
+											<button class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip" onclick="warningBeforeDelete()" disabled
+												title="delete game" ><i class="fas fa-trash-alt"> Delete</i>
+											</button>
+										</td>
+									</tr>
+								</c:forEach>				
+							</tbody>
+						</table>
+					</div>
 				</div>
+			</form>
+			
+			<div class ="">
+				<nav aria-label="Page navigation">
+				     <ul class="pagination" id="pagination"></ul>
+				</nav>
 			</div>
+			
 			<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 		</div>
 		<p class="small text-center text-muted my-5">
@@ -141,5 +149,24 @@
 		      });
 		  }
 		);
-	} 
+	}		
+	 	
+	 	var currentPage = ${model.page};
+	 	var totalPage = ${model.totalPage};
+	 	
+	 	$(function () {
+	        window.pagObj = $('#pagination').twbsPagination({
+	            totalPages: totalPage,
+	            visiblePages: 4,
+	            startPage: currentPage,
+	            onPageClick: function (event, page) {
+	                if(currentPage != page){
+	                	$("#formSubmit").submit();
+	                }
+	            }
+	        }).on('page', function (event, page) {
+	            console.info(page + ' (from event listening)');
+	        });
+	    });
+
 </script>

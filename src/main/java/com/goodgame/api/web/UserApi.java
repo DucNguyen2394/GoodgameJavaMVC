@@ -1,14 +1,13 @@
 package com.goodgame.api.web;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.goodgame.dto.UserDTO;
 import com.goodgame.entity.UserEntity;
 import com.goodgame.repository.UserRepository;
@@ -24,17 +23,19 @@ public class UserApi {
 	UserRepository userRepository;
 	
 	@PostMapping("/api/user")
-	public UserDTO createAccount(@RequestBody UserDTO userDTO,
-			Model model, @Validated @ModelAttribute("form") UserEntity user, BindingResult errors) {
+	public UserDTO createAccount(Model model,@RequestBody UserDTO userDTO,
+			@Valid @ModelAttribute("form") UserEntity user, BindingResult errors) {
+		
 		if(errors.hasErrors()) {
-			model.addAttribute("message","Please fix some following errors");
+			model.addAttribute("form",errors.getAllErrors());
 			return null;
 		}else {
 			user = userRepository.findOneByUsername(userDTO.getUsername());
 			
 			if(user != null) {
-				model.addAttribute("message", "Username is in used");
+				model.addAttribute("errors", "username is used");
 				return null;
+				
 			}else {	
 				return userService.save(userDTO);
 			}

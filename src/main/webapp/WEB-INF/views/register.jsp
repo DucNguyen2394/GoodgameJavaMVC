@@ -24,8 +24,9 @@
 						<div class="form-row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<form:input type="text" id="username" path="username" class="form-control" placeholder="Username" required="required"/> 
-									<p>${message}</p>
+									<form:input type="text" id="username" path="username" cssClass="form-control" placeholder="Username" /> 
+									<span>${errors}</span>
+									
 								</div>
 							</div>
 							<div class="col-md-12">

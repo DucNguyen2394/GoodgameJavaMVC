@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserDTO findByUsername(String username) {
-		UserEntity userDTO = userRepository.findOneByUsername(username);
-		return userConverter.toDto(userDTO);
+		UserEntity userEntity = userRepository.findOneByUsername(username);
+		return userConverter.toDto(userEntity);
 	}
 
 	@Override

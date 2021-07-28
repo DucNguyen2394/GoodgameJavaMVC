@@ -9,37 +9,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	
-	@NotEmpty(message = "ko duoc trung ky tu")
-	@Pattern(regexp="[^0-9]+")
-	@Size(min=6,max=30)
+	@NotNull
 	@Column(name = "username")
 	private String username;
 	
-	@NotEmpty
+	
 	@Column(name = "fullname")
 	private String fullname;
 	
-	@NotEmpty
+	
 	@Column(name = "age")
 	private Integer age;
 	
-	@NotEmpty
+	
 	@Column(name = "address")
 	private String address;
 	
-	@NotEmpty(message = "it nhat 6 ky tu")
-	@Length(min = 6)
+	
 	@Column(name = "password")
 	private String password;
 	

@@ -42,7 +42,7 @@
 											<form:options items="${categories}"/>									
 										</form:select> --%>
 										<select class="form-control" id="categoryCode"  name="categoryCode" multiple>
-											<option value="" label="-- Choose category --" />
+											<option value="" label="-- Choose category --" disabled="disabled"/>
 										    <c:forEach var="item" items="${categories}">
 										        <option value="${item.code}">${item.name}</option>
 										    </c:forEach>

@@ -1,10 +1,7 @@
 package com.goodgame.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,10 +29,6 @@ public class GameEntity extends BaseEntity {
 	
 	@Column(name = "thumbnail")
 	private String thumbnail;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name ="category_id")
-//	private CategoryEntity category;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "game_category", joinColumns = @JoinColumn(name = "gameId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
@@ -75,12 +68,6 @@ public class GameEntity extends BaseEntity {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-//	public CategoryEntity getCategoryEntity() {
-//		return category;
-//	}
-//	public void setCategoryEntity(CategoryEntity categoryEntity) {
-//		this.category = categoryEntity;
-//	}
 	
 	public PlatformEntity getPlatform() {
 		return platform;

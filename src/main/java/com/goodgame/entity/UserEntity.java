@@ -9,39 +9,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	
-	@NotNull
 	@Column(name = "username")
 	private String username;
-	
 	
 	@Column(name = "fullname")
 	private String fullname;
 	
-	
 	@Column(name = "age")
 	private Integer age;
-	
 	
 	@Column(name = "address")
 	private String address;
 	
-	
 	@Column(name = "password")
 	private String password;
 	
-//	@Email
-//	@NotEmpty
 //	@Column(name = "email")
 //	private String email;
 
-	@Size(max=1)
 	@Column(name = "status")
 	private Integer status;
 		

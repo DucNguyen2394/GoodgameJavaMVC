@@ -1,33 +1,27 @@
 <%@include file="/common/Taglib.jsp"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/template/admin/css/sb-admin.css'/>"
-	rel="stylesheet" type="text/css">
+<link href="<c:url value='/template/admin/css/sb-admin.css'/>" rel="stylesheet" type="text/css">
 <title>login</title>
 </head>
+
 <body class="bg-dark">
 	<div class="container">
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">Register an Account</div>
 			<div class="card-body">
-				<form:form action ="register" id="formSubmit" method="POST" modelAttribute="form">
+				<form:form action ="${pageContext.request.contextPath}/api/user" modelAttribute="form" id="formSubmit" method="POST">
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<form:input type="text" id="username" path="username" cssClass="form-control" placeholder="Username" /> 
-									<span>${errors}</span>
-									
-								</div>
+ 									<span class="error"></span>
+ 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
@@ -83,12 +77,10 @@
 	<!-- Bootstrap core JavaScript-->
 	<script src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
 	<script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 	
-	<script type="text/javascript">
+	<script>
 	
-		$('#formSubmit').on('submit', function (e) {
+		 $('#formSubmit').on('submit', function (e) {
 			e.preventDefault();
 		    var data = {};
 		    var formData = $('#formSubmit').serializeArray();
@@ -100,7 +92,7 @@
 		    addUser(data)
 		});
 		
-		function addUser(data) {
+		 function addUser(data) {
 			$.ajax({
 	            url: 'http://localhost:8080/goodgame/api/user',
 	            type: 'POST',
@@ -108,14 +100,22 @@
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = " http://localhost:8080/goodgame/login ";
-	            	console.log("thanh cong");
+	            	console.log(result);
+	            	window.location.replace = "http://localhost:8080/goodgame/trang-chu";
+	            	console.log("ok");
 	            },
 	            error: function (error) {
-	            	window.location.href = "http://localhost:8080/goodgame/account/register";
+	            	console.log(error)
+	            	if(error.status == 400){
+		            	const err = document.querySelector(".error")
+		            	err.textContent = error.statusText
+		            	err.style.color = "red"		
+	            	}else if(error.status == 200){	
+		            	window.location.href = "http://localhost:8080/goodgame/login";             		
+	            	}
 	            }
 	        });
-		}
+		}    
 		
 	</script>
 </body>

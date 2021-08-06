@@ -25,7 +25,7 @@
     
     <authentication-manager >
         <authentication-provider user-service-ref="userDetailsServiceImpl">
-        		<password-encoder ref="bcryptEncoder"/>
+        	<password-encoder ref="bcryptEncoder"/>
         </authentication-provider>
     </authentication-manager>
     

@@ -41,12 +41,11 @@ public class GameController {
       model.setPage(page);
       model.setLimit(limit);
       
-      Pageable pageable = new PageRequest(page, limit);
+      Pageable pageable = new PageRequest(page - 1, limit);
       
       model.setListResult(gameService.findAll(pageable));
       model.setTotalItem(gameService.getTotalItem());
-      model.setTotalPage((int) Math.ceil((double) model.getTotalItem() /model.getLimit()));
-      
+      model.setTotalPage((int) Math.ceil((double) model.getTotalItem() /model.getLimit()));  
       
       if(request.getParameter("message") != null) {
 

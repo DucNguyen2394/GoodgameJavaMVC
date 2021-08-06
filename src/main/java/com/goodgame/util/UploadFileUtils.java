@@ -15,7 +15,7 @@ public class UploadFileUtils {
 		
 		File file = new File(StringUtils.substringBeforeLast(root + path, "/"));
 		if(!file.exists()) {
-			file.mkdir();
+			file.mkdirs();
 		}
 
 		FileOutputStream fos = null;

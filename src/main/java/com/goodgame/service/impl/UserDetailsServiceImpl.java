@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		User user = new User(userEntity.getUsername(),userEntity.getPassword(), grantedAuthorities);
-		
+		System.err.println(user);
 		return user;
 	}
 

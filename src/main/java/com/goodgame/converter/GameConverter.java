@@ -20,7 +20,6 @@ public class GameConverter {
 //			result.setCategoryCode(gameEntity);			
 //		}
 		
-		
 		return result;
 	}
 	

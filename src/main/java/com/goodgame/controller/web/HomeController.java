@@ -52,23 +52,5 @@ public class HomeController {
 		mav.addObject("form", new UserEntity());
 		return mav;
 	}
-	
-//	@PostMapping(value = "/account/register")
-//	public String createAccount(Model model, @Validated @ModelAttribute("form") UserEntity user, BindingResult errors) {
-//
-//		if(errors.hasErrors()) {
-//			model.addAttribute("message","Please fix some following errors");
-//			return "/account/register";
-//		}else {
-//			UserDTO userDto = userService.findByUsername(user.getUsername());
-//			if(userDto != null) {
-//				model.addAttribute("message", "Username is in used");
-//				return "/account/register";
-//			}
-//		}
-//		
-//		
-//		return "redirect:/trang-chu";
-//	}
 
 }

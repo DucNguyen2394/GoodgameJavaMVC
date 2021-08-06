@@ -1,13 +1,19 @@
 package com.goodgame.dto;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserDTO extends AbstractDTO<UserDTO>{
-	
+	@NotEmpty
 	private String username;
+	@NotNull
 	private String password;
+	
 	private String fullname;
 	private String email;
 	private Integer age;
+	
 	private String address;
 	private Integer status;
 	
@@ -54,6 +60,5 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	
 }

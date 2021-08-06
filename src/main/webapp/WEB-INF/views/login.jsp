@@ -1,73 +1,72 @@
-<%@include file="/common/Taglib.jsp"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/common/Taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<!-- Custom styles for this template-->
-<link href="<c:url value='/template/admin/css/sb-admin.css'/>"
-	rel="stylesheet" type="text/css">
 <title>login</title>
 </head>
-<body class="bg-dark">
+<body>
 	<div class="container">
-		<div class="card card-login mx-auto mt-5">
-			<div class="card-header">Login</div>
-			<div class="card-body">
-
-				<c:if test="${param.incorrectAccount != null}">
-					<div class="alert alert-danger">	
-							Username or password incorrect
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Login GoodGame</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-12 col-lg-10">
+				<div class="wrap d-md-flex">
+					<div class="img" style="background-image: url(template/login/img/godchibi.jpg);">
 					</div>
-				</c:if>
-				<c:if test="${param.accessDenied != null}">
-					<div class="alert alert-danger">	
-							you Not authorize
-					</div>
-				</c:if>
-
-				<form action="j_spring_security_check" method="post">
-					<div class="form-group">
-						<div class="form-label-group">
-							<input type="text" id="formlogin" class="form-control"
-								placeholder="username" required="required" name="username">
-
+					<div class="login-wrap p-4 p-md-5">
+						<div class="d-flex">
+							<div class="w-100">
+								<h3 class="mb-4">Sign In</h3>
+							</div>
+							<div class="w-100">
+								<p class="social-media d-flex justify-content-end">
+									<a href="#" class="social-icon d-flex align-items-center justify-content-center">
+										<span class="fa fa-facebook"></span>
+									</a> 
+									<a href="#" class="social-icon d-flex align-items-center justify-content-center">
+										<span class="fa fa-twitter"></span>
+									</a>
+								</p>
+							</div>
 						</div>
+						<c:if test="${param.incorrectAccount != null }">
+							<div class="alert alert-danger">
+								username or password incorrect
+							</div>
+						</c:if>
+						<form action="j_spring_security_check" class="signin-form" method="POST">
+							<div class="form-group mb-3">
+								<label class="label" for="name">Username</label> 
+								<input type="text" class="form-control" placeholder="Username" name="username" required>
+							</div>
+							<div class="form-group mb-3">
+								<label class="label" for="password">Password</label> 
+								<input type="password" class="form-control" placeholder="Password" name="password" required>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+							</div>
+							<div class="form-group d-md-flex">
+								<div class="w-50 text-left">
+									<label class="checkbox-wrap checkbox-primary mb-0">Remember Me <input type="checkbox" checked> <span class="checkmark"></span> </label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#">Forgot Password</a>
+								</div>
+							</div>
+						</form>
+						<p class="text-center">
+							Not a member? <a data-toggle="tab" href="#signup">Sign Up</a>
+						</p>
 					</div>
-					<div class="form-group">
-						<div class="form-label-group">
-							<input type="password" id="inputPassword" class="form-control"
-								placeholder="Password" required="required" name="password">
-
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="checkbox">
-							<label> <input type="checkbox" value="remember-me">
-								Remember Password
-							</label>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary btn-block">Login</button>
-				</form>
-				<div class="text-center">
-					<a class="d-block small mt-3" href="#">Register an Account</a> <a
-						class="d-block small" href="#"> Forgot Password?</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
-	<script
-		src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
 </html>

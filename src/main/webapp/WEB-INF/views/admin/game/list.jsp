@@ -36,7 +36,7 @@
 						</div>
 					</div>
 			</div>
-			<form action="<c:url value='/admin/game/list?${model.page}&limit=${model.limit }'/>" id="formSubmit" method="get">
+			<form action="<c:url value='/admin/game/list'/>" id="formSubmit" method="get">
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable">
@@ -78,7 +78,7 @@
 										<td>
 											<button class="btn btn-sm btn-primary btn-delete" data-toggle="tooltip" onclick="warningBeforeDelete()" disabled
 												title="delete game" ><i class="fas fa-trash-alt"> Delete</i>
-											</button>
+											</button>											
 										</td>
 									</tr>
 								</c:forEach>				
@@ -86,13 +86,14 @@
 						</table>
 					</div>
 				</div>
-			</form>
-			
-			<div class ="">
-				<nav aria-label="Page navigation">
-				     <ul class="pagination" id="pagination"></ul>
-				</nav>
-			</div>
+				<div class ="">
+					<nav aria-label="Page navigation">
+					     <ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<input type="hidden" id="page" name="page" />
+				<input type="hidden" id="limit" name="limit" />
+			</form>		
 			
 			<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 		</div>
@@ -137,7 +138,6 @@
 		        data: JSON.stringify(data),
 		        success: function(result) {
 		        	window.location.href = "${gameURL}?message=delete_success";
-		        	console.log("dcm")
 		        }
 		      })
 		      .done(function(result) {
@@ -161,6 +161,8 @@
 	            startPage: currentPage,
 	            onPageClick: function (event, page) {
 	                if(currentPage != page){
+	                	$("#limit").val(2);
+	                	$("#page").val(page);
 	                	$("#formSubmit").submit();
 	                }
 	            }

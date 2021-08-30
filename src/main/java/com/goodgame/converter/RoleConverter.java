@@ -1,8 +1,11 @@
 package com.goodgame.converter;
 
+import org.springframework.stereotype.Component;
+
 import com.goodgame.dto.RoleDTO;
 import com.goodgame.entity.RoleEntity;
 
+@Component
 public class RoleConverter {
 	public RoleDTO toDto(RoleEntity roleEntity) {
 		RoleDTO result = new RoleDTO();

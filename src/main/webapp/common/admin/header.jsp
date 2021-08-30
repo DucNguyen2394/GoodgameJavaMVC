@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-	<a class="navbar-brand mr-1" href="http://localhost:8080/goodgame/admin">The Horde</a>
+	<a class="navbar-brand mr-1" href="${pageContext.request.contextPath }/admin">The Horde</a>
 
 	<a class="btn btn-link btn-sm text-white order-1 order-sm-0"
 		id="sidebarToggle" href="/">
@@ -60,8 +60,9 @@
 			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="#">Welcome <%=SecurityUtils.getPrincipal().getUsername() %></a> 
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="<c:url value='/logout' />" data-toggle="modal" data-target="#logoutModal">Logout</a>
-			</div></li>
+				<a class="dropdown-item" href="${pageContext.request.contextPath}/logout" >Logout</a>
+			</div>
+			</li>
 	</ul>
 
 </nav>

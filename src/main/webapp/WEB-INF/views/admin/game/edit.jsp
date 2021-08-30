@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/Taglib.jsp"%>
 <c:url var="gameURL" value="http://localhost:8080/goodgame/admin/game/list" />
-<c:url var="editGameURL" value="http://localhost:8080/goodgame/admin/game/edit"></c:url>
+<c:url var="gameEditURL" value="http://localhost:8080/goodgame/admin/game/edit" />
 <c:url var="gameAPI" value="http://localhost:8080/goodgame/api/game" />
-<html>
-<head>
-<title>Edit games</title>
-</head>
-<body>
+<c:url var="gameUpload" value="http://localhost:8080/goodgame/api/upload" />
+
 	<div class="container-fluid mt-2">
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -32,28 +29,37 @@
 								 	<strong>${message}</strong>
 								</div>							
 							</c:if>
-							
 							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model" enctype="multipart/form-data">
 								<div class="form-group">
 									<label for="categoryCode" class="col-sm-3 control-label no-padding-right">Category:</label>
 									<div class="col-sm-9">
 										<%-- <form:select path="categoryCode" id="categoryCode" multiple="true">
 											<form:option value="" label="-- Choose category --" />
-											<form:options items="${categories}"/>									
+										        <form:options value="${categories}"/>																			
 										</form:select> --%>
-										<select class="form-control" id="categoryCode"  name="categoryCode" multiple>
-											<option value="" label="-- Choose category --" disabled="disabled"/>
-										    <c:forEach var="item" items="${categories}">
-										        <option value="${item.code}">${item.name}</option>
-										    </c:forEach>
-										</select>
+										
+										<form:select path="categoryCode" class="form-control" id="categoryCode"  name="categoryCode" multiple="multiple">
+											<form:option value="" label="-- Choose category --" disabled="disabled"/>
+											<c:forEach var="item" items="${categories}">
+											    <option>${item.code}</option>>											
+											</c:forEach>
+										</form:select>
+										
+										<%-- <form:checkboxes path="categories" element="div" items="${categories}" itemValue="id" itemLabel="name"/> --%>
+										
+										<%-- <c:forEach items="${categories}" var="item">
+								            <tr>
+								                <td><form:checkbox path="categories" value="${item.code}" /></td>							                
+								                <td><c:out value="${item.code}" /></td>
+								            </tr>
+								        </c:forEach> --%>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="categoryCode" class="col-sm-3 control-label no-padding-right">Platform:</label>
+									<label for="platformCode" class="col-sm-3 control-label no-padding-right">Platform:</label>
 									<div class="col-sm-9">
 										<form:select path="platformCode" id="platformCode">
-											<form:option value="" label="-- Choose platform --" />
+											<form:option value="" label="-- Choose platform --" disabled="disabled"/>
 											<form:options items="${platforms}"/>
 										</form:select>
 									</div>
@@ -73,18 +79,18 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Choose file upload</label>
 									<div class="col-sm-9">
-										<input type="file" class="col-xs-10" id="thumbnail" name="thumbnail" />
+										<input type="file" class="col-xs-10 thumbnail" id="thumbnail" name="file"/>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="shortDescription" class="col-sm-3 control-label no-padding-right">ShortDescription:</label>
 									<div class="col-sm-9">
-										<form:textarea path="description" rows="3" cols="10" cssClass="form-control" id="shortDescription" />
+										<form:textarea path="description" rows="2" cols="5" cssClass="form-control" id="shortDescription" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="content" class="col-sm-3 control-label no-padding-right">Content:</label>
-									<div class="col-sm-9">
+									<div class="col-sm-9">									
 										<form:textarea path="content" rows="5" cols="10" cssClass="form-control" id="content" />
 									</div>
 								</div>
@@ -114,12 +120,18 @@
 			</div>
 		</div>
 	</div>
-	<script>		
+	<script>	
+	
+		ClassicEditor
+	    .create( document.querySelector( '#content' ) )
+	    .catch( error => {
+	        console.error( error );
+	    } );	
+	
 		$('#formSubmit').on('submit', function (e) {
 			e.preventDefault();
 		    var data = {};
 		    var formData = $('#formSubmit').serializeArray();
-		    console.log(formData)
 		    $.each(formData, function (i, v) {
 	            data["" + v.name + ""] = v.value;
 	        });
@@ -132,32 +144,50 @@
 		});
 		
 		function addGame(data) {
+			var file_name = $('input[type="file"].thumbnail').val().replace(/\\/g, '/').replace(/.*\//, '')
+			file_name_path = 'C:\\usr\\var\\thumbnail\\' + file_name;
+			
+			const select = document.getElementById('categoryCode');
+			
+			const categoryArr = [];
+			for (let a = 0; a < select.options.length; a++)
+				{
+				if (select.options[a].value)
+					categoryArr.push(select.options[a].value)
+				}
+			
+			console.log(categoryArr)
+			
+			data = {...data, thumbnail: file_name_path,categoryArr}
 			$.ajax({
-	            url: 'http://localhost:8080/goodgame/api/game',
+	            url: '${gameAPI}',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = " ${editGameURL}?id="+ result.id+ "&message=create_success ";
-	            	console.log("thanh cong");
+	            	window.location.href = " ${gameEditURL}?id="+ result.id+ "&message=insert_success ";
 	            },
-	            error: function (error) {
-	            	window.location.href = "${gameURL}?message=error_system";
-	            	console.log("that bai");
+	            error: function (error) {            	
+	            	window.location.href = "${gameURL}?page=1&limit=10&message=error_system";
 	            }
 	        });
 		}
 		
 		function updateGame(data) {
+			var file_name = $('input[type="file"].thumbnail').val().replace(/\\/g, '/').replace(/.*\//, '')
+			file_name_path = 'C:\\usr\\var\\thumbnail\\' + file_name;
+
+			data = {...data, thumbnail: file_name_path}
 			$.ajax({
-	            url: 'http://localhost:8080/goodgame/api/game',
+	            url: '${gameAPI}',
 	            type: 'PUT',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = "${editGameURL}?id="+ result.id+ "&message=update_success ";
+	            	console.log(result)
+	            	window.location.href = "${gameEditURL}?id="+ result.id+ "&message=update_success ";
 	            },
 	            error: function (error) {
 	            	window.location.href = "${gameURL}?id="+ result.id +"&message=error_system";
@@ -181,7 +211,7 @@
 		
 		function upload(data){
 			$.ajax({
-				url: "http://localhost:8080/goodgame/api/upload",
+				url: "${gameUpload}",
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: 'application/json',

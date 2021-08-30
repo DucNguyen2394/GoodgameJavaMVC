@@ -16,6 +16,9 @@ public class PlatformEntity extends BaseEntity {
 	
 	@Column(name = "code")
 	private String code;
+	
+	@OneToMany(mappedBy = "platform")
+	private List<GameEntity> games = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -32,9 +35,6 @@ public class PlatformEntity extends BaseEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
-	@OneToMany(mappedBy = "platform")
-	private List<GameEntity> games = new ArrayList<>();
 
 	public List<GameEntity> getGames() {
 		return games;

@@ -15,6 +15,12 @@ public interface GameService {
 	GameDTO findById(long id);
 	
 	GameDTO save(GameDTO dto);
-	
+		
 	void delete(long[] ids);
+	
+	void deleteTrash(long[] ids);
+	
+	List<GameDTO> findTrash(Pageable pageable);
+	
+	GameDTO restore(long[] ids);
 }

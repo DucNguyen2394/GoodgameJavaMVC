@@ -1,5 +1,8 @@
 package com.goodgame.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,6 +19,12 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	
 	private String address;
 	private Integer status;
+	private String photo;
+	
+	private String confirmPassword;
+	private String userCode;
+	
+	private Set<RoleDTO> roles = new HashSet<RoleDTO>();
 	
 	public Integer getStatus() {
 		return status;
@@ -60,5 +69,28 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
 }

@@ -1,33 +1,32 @@
 package com.goodgame.api.admin;
 
-import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.goodgame.dto.UploadFileDTO;
-import com.goodgame.repository.GameRepository;
-import com.goodgame.util.UploadFileUtils;
+import com.goodgame.dto.GameDTO;
+import com.goodgame.service.GameService;
 
-@RestController(value = "GameApiOfAdmin")
+@RestController
 public class GameApi {
 	
 	@Autowired
-	UploadFileUtils uploadFileUtils;
+	private GameService gameService;
 	
-	@Autowired
-	GameRepository gameRepository;
+	@PostMapping("/api/game")
+	public GameDTO createGame(@RequestBody GameDTO gameDTO){	
+		return gameService.save(gameDTO);
+	}
 	
-	@PostMapping("/api/upload")
-	private ResponseEntity<Void> uploadFile(@RequestBody UploadFileDTO uploadFileDTO){
-		byte[] decodeBase64 = Base64.getDecoder().decode(uploadFileDTO.getBase64().getBytes());
-		
-		System.out.println("link anh: " + decodeBase64);
-		
-		uploadFileUtils.writeOrUpdate(decodeBase64,"thumbnail/" + uploadFileDTO.getName());
-		
-//		gameRepository.save();
-		return ResponseEntity.noContent().build();
+	@PutMapping("/api/game")
+	public GameDTO updateGame(@RequestBody GameDTO gameDTO) {
+		return gameService.save(gameDTO);
+	}
+	
+	@DeleteMapping("/api/game")
+	public void deleteGame(@RequestBody long[] ids) {
+		gameService.delete(ids);
 	}
 }

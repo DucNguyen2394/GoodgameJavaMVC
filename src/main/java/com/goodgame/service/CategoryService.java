@@ -1,11 +1,25 @@
 package com.goodgame.service;
 
 import java.util.List;
-import java.util.Map;
-
+import org.springframework.data.domain.Pageable;
 import com.goodgame.dto.CategoryDTO;
 
 public interface CategoryService {
-	Map<String,String> findAll();
+	List<CategoryDTO> findAll(Pageable pageable);
+	
 	List<CategoryDTO> findAl();
+	
+	int getTotalItem();
+	
+	CategoryDTO findById(long id);
+	
+	CategoryDTO save(CategoryDTO dtos);
+	
+	void deleteTrash(long[] ids);
+	
+	List<CategoryDTO> findTrash(Pageable pageable);
+	
+	CategoryDTO restore(long[] ids);
+	
+	void delete(long[] ids);
 }

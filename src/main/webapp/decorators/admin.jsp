@@ -7,25 +7,27 @@
 <meta charset="UTF-8">
 <title>Home</title>
 
-<!-- Custom fonts for this template-->
-<link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
-
-<!-- Page level plugin CSS-->
-<link href="<c:url value='/template/admin/vendor/datatables/dataTables.bootstrap4.css'/>" rel="stylesheet" type="text/css"/>
-
-<!-- Custom styles for this template-->
-<link href="<c:url value='/template/admin/css/sb-admin.css'/>" rel="stylesheet" type="text/css"/>
+	<!-- Custom fonts for this template-->
+	<link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 	
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<!-- sweetalert -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Page level plugin CSS-->
+	<link href="<c:url value='/template/admin/vendor/datatables/dataTables.bootstrap4.css'/>" rel="stylesheet" type="text/css"/>
+	
+	<!-- Custom styles for this template-->
+	<link href="<c:url value='/template/admin/css/sb-admin.css'/>" rel="stylesheet" type="text/css"/>
+		
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<!-- sweetalert -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	 
+	 <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 </head>
 <body id="page-top">
 
@@ -41,23 +43,22 @@
 	<!-- Bootstrap core JavaScript-->
 	<script src="<c:url value='/template/admin/vendor/jquery/jquery.js'/>"></script>
 	<script src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
-	<script
-		src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+	<script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 	<!-- Core plugin JavaScript-->
 	<script src="<c:url value='/template/admin/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 	<!-- Page level plugin JavaScript-->
-	<script src="<c:url value='/template/admin/vendor/chart.js/Chart.min.js'/>"></script>
+<%-- 	<script src="<c:url value='/template/admin/vendor/chart.js/Chart.min.js'/>"></script> --%>
 	<script src="<c:url value='/template/admin/vendor/datatables/jquery.dataTables.js'/>"></script>
 	<script src="<c:url value='/template/admin/vendor/datatables/dataTables.bootstrap4.js'/>"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="<c:url value='/template/admin/js/sb-admin.min.js'/>"></script>
-
+	
 	<!-- Demo scripts for this page-->
-	<script src="<c:url value='/template/admin/js/demo/datatables-demo.js'/>"></script>
-	<script src="<c:url value='/template/admin/js/demo/chart-area-demo.js'/>"></script>
+<%-- 	<script src="<c:url value='/template/admin/js/demo/datatables-demo.js'/>"></script> --%>
+<%-- 	<script src="<c:url value='/template/admin/js/demo/chart-area-demo.js'/>"></script> --%>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 	<!-- pagging -->

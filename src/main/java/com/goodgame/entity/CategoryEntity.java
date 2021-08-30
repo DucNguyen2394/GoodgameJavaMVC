@@ -2,8 +2,10 @@ package com.goodgame.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -17,6 +19,9 @@ public class CategoryEntity extends BaseEntity {
 	@Column(name = "code")
 	private String code;
 	
+	@Column(name = "status")
+	private int status;
+	
 	public String getName() {
 		return name;
 	}
@@ -29,7 +34,7 @@ public class CategoryEntity extends BaseEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+		
 //	@OneToMany(mappedBy = "category")
 //	private List<GameEntity> games = new ArrayList<>();
 //	
@@ -40,14 +45,17 @@ public class CategoryEntity extends BaseEntity {
 //		this.games = games;
 //	}
 	
-	@ManyToMany(mappedBy = "categories")
-	private Set<GameEntity> games = new HashSet<>();;
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-	public Set<GameEntity> getGames() {
-		return games;
-	}
-	public void setGames(Set<GameEntity> games) {
-		this.games = games;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "categories")
+	private Set<GameEntity> games = new HashSet<>();
 	
+	 public Set<GameEntity> getGames() { return games; } public void
+	 setGames(Set<GameEntity> games) { this.games = games; }
+	 
 }

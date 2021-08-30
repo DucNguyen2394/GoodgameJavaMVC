@@ -13,15 +13,17 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<link href="<c:url value='/template/login/css/style.css'/>" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 </head>
 <body>
 	<section class="ftco-section">
 		<dec:body />
 	</section>
 	
-	<script src="<c:url value='/template/login/js/jquery.min.js'/>"></script>
-	<script src="<c:url value='/template/login/js/popper.js'/>"></script>
-	<script src="<c:url value='/template/login/js/bootstrap.min.js'/>"></script>
-	<script src="<c:url value='/template/login/js/main.js'/>"></script>	
+	<script src="<c:url value="/template/login/js/popper.js"/>"></script>	
+	<script src="<c:url value="/template/login/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/template/login/js/jquery.min.js"/>"></script>
+	<script src="<c:url value="/template/login/js/main.js"/>"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UploadFileUtils {
-	
+		
 	private final String root = "C:\\usr\\var\\";
 	
 	public void writeOrUpdate(byte[] bytes, String path) {
@@ -17,7 +17,6 @@ public class UploadFileUtils {
 		if(!file.exists()) {
 			file.mkdirs();
 		}
-
 		FileOutputStream fos = null;
 		try{
 			fos = new FileOutputStream(new File(root + path));
@@ -30,7 +29,6 @@ public class UploadFileUtils {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
+		}	
 	}
 }

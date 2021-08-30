@@ -1,6 +1,8 @@
 package com.goodgame.dto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GameDTO extends AbstractDTO<GameDTO> {
@@ -14,6 +16,10 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	private String platformCode;
 	private Long categoryId;
 	private String categoryCode;
+	private int status;
+	
+	private Long videoId;
+	private List<VideoDTO> videos = new ArrayList<>();
 	
 	private Set<CategoryDTO> categories = new HashSet<>();;
 	
@@ -71,11 +77,26 @@ public class GameDTO extends AbstractDTO<GameDTO> {
 	public void setPlatformCode(String platformCode) {
 		this.platformCode = platformCode;
 	}
-	public Set<CategoryDTO> getCategories() {
-		return categories;
-	}
-	public void setCategories(Set<CategoryDTO> categories) {
-		this.categories = categories;
-	}
 	
+	 public Set<CategoryDTO> getCategories() { return categories; } 
+	 public void setCategories(Set<CategoryDTO> categories) { this.categories = categories; }
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public Long getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(Long videoId) {
+		this.videoId = videoId;
+	}
+	public List<VideoDTO> getVideos() {
+		return videos;
+	}
+	public void setVideos(List<VideoDTO> videos) {
+		this.videos = videos;
+	}
 }

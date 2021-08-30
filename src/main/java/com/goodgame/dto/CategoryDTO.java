@@ -8,7 +8,7 @@ public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	private String name;
 	private String code;
 	
-	private Set<GameDTO> games = new HashSet<>();;
+	private Set<GameDTO> games = new HashSet<>();
 	
 	public String getName() {
 		return name;
@@ -22,10 +22,8 @@ public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Set<GameDTO> getGames() {
-		return games;
-	}
-	public void setGames(Set<GameDTO> games) {
-		this.games = games;
-	}
+	
+	 public Set<GameDTO> getGames() { return games; } 
+	 public void setGames(Set<GameDTO> games) { this.games = games; }
+
 }

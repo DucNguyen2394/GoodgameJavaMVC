@@ -11,5 +11,8 @@
 	
 	<decorator name="login" page="login.jsp">
 		<pattern>/login</pattern>
+		<pattern>/register</pattern>
+		<pattern>/forgot_password</pattern>
 	</decorator>
+	
 </decorators>

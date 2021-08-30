@@ -40,6 +40,7 @@ public class BaseEntity {
 	public Long getId() {
 		return id;
 	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}

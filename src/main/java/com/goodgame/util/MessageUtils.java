@@ -22,6 +22,9 @@ public class MessageUtils {
 		} else if (message.equals("error_system")) {
 			result.put("message", "Error system");
 			result.put("alert", "danger");
+		} else if(message.equals("restore_success")) {
+			result.put("message", "Restore_success");
+			result.put("alert", "success");
 		}
 		return result;
 	}

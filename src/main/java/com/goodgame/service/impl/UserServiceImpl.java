@@ -1,18 +1,25 @@
 package com.goodgame.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.goodgame.constant.SystemConstant;
 import com.goodgame.converter.UserConverter;
 import com.goodgame.dto.UserDTO;
+import com.goodgame.entity.RoleEntity;
 import com.goodgame.entity.UserEntity;
 import com.goodgame.repository.RoleRepository;
 import com.goodgame.repository.UserRepository;
 import com.goodgame.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -23,6 +30,19 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserConverter userConverter;
+    
+	@Override
+	public List<UserDTO> findAll(Pageable pageable) {
+		List<UserDTO> dtos = new ArrayList<UserDTO>();
+		List<UserEntity> entities = userRepository.findAll(pageable).getContent();
+		for(UserEntity entity : entities) {
+			if(entity.getStatus() == SystemConstant.ACTIVE_STATUS) {
+				UserDTO userDTO = userConverter.toDto(entity);
+				dtos.add(userDTO);				
+			}
+		}
+		return dtos;
+	}
     
 	@Override
 	public void save(UserEntity user) {
@@ -40,10 +60,73 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserDTO save(UserDTO dto) {
+		RoleEntity roleEntity = roleRepository.findOneByCode(dto.getUserCode());
 		UserEntity userEntity = new UserEntity();
-		dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-		userEntity = userConverter.toEntity(dto);
+		
+		if(dto.getId() != null) {
+			UserEntity oldUser = userRepository.findOne(dto.getId());
+			oldUser.getRoles().add(roleEntity);
+			userEntity = userConverter.toEntity(oldUser,dto);
+			dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+		}else {
+			userEntity = userConverter.toEntity(dto);
+			userEntity.getRoles().add(roleEntity);
+			dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+		}
 		return userConverter.toDto(userRepository.save(userEntity));
+	}
+	
+	public void updateResetPasswordToken(String token, String email) {
+        UserEntity userEntity = userRepository.findOneByEmail(email);
+        if (userEntity != null) {
+        	userEntity.setResetPasswordToken(token);
+        	userRepository.save(userEntity);
+        } else {
+            System.err.println("Could not find any customer with the email ");
+        }
+    }
+	
+	public UserEntity getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+	public void updatePassword(UserEntity user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+         
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
+    }
+
+	@Override
+	public int getTotalItem() {
+		return (int) userRepository.count();
+	}
+
+	@Override
+	public UserDTO findById(long id) {
+		UserEntity userEntity = userRepository.findOne(id);
+		return userConverter.toDto(userEntity);
+	}
+
+	@Override
+	public void delete(long[] ids) {
+		for(long id : ids) {
+			UserEntity userEntity = userRepository.findOne(id);
+			userEntity.setStatus(SystemConstant.INACTIVE_STATUS);
+		}
+	}
+
+	@Override
+	public List<UserDTO> findTrash(Pageable pageable) {
+		List<UserDTO> dtos = new ArrayList<UserDTO>();
+		List<UserEntity> entities = userRepository.findAll(pageable).getContent();
+		for(UserEntity entity : entities) {
+			UserDTO userDTO = userConverter.toDto(entity);
+			dtos.add(userDTO);
+		}
+		return dtos;
 	}
 
 }

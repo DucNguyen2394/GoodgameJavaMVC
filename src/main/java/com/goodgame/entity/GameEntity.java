@@ -1,7 +1,10 @@
 package com.goodgame.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,13 +34,23 @@ public class GameEntity extends BaseEntity {
 	@Column(name = "thumbnail")
 	private String thumbnail;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "game_category", joinColumns = @JoinColumn(name = "gameId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "game_category", 
+			joinColumns = @JoinColumn(name = "gameId"), 
+			inverseJoinColumns = @JoinColumn(name = "categoryId")
+			)
 	private Set<CategoryEntity> categories = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="platform_id")
 	private PlatformEntity platform;
+	
+	@OneToMany(mappedBy = "game")
+	private List<VideoEntity> videos = new ArrayList<>();
+	
+	@Column(name = "status")
+	private int status;
 	
 	public String getName() {
 		return name;
@@ -75,10 +89,22 @@ public class GameEntity extends BaseEntity {
 	public void setPlatform(PlatformEntity platform) {
 		this.platform = platform;
 	}
-	public Set<CategoryEntity> getCategories() {
-		return categories;
+
+	 public Set<CategoryEntity> getCategories() { return categories; } public void
+	 setCategories(Set<CategoryEntity> categories) { this.categories = categories;
+	 }
+	 
+	public List<VideoEntity> getVideos() {
+		return videos;
 	}
-	public void setCategories(Set<CategoryEntity> categories) {
-		this.categories = categories;
+	public void setVideos(List<VideoEntity> videos) {
+		this.videos = videos;
 	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 }

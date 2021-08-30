@@ -29,15 +29,21 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "password")
 	private String password;
 	
-//	@Column(name = "email")
-//	private String email;
+	@Column(name = "email")
+	private String email;
 
 	@Column(name = "status")
 	private Integer status;
+	
+	@Column(name = "photo")
+	private String photo;
 		
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<RoleEntity> roles = new ArrayList<>();
+	
+	@Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
 	public String getUsername() {
 		return username;
@@ -63,13 +69,13 @@ public class UserEntity extends BaseEntity {
 		this.age = age;
 	}
 	
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getAddress() {
 		return address;
@@ -102,5 +108,20 @@ public class UserEntity extends BaseEntity {
 	public void setRoles(List<RoleEntity> roles) {
 		this.roles = roles;
 	}
-	
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }

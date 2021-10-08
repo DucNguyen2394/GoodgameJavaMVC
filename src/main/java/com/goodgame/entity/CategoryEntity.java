@@ -2,7 +2,6 @@ package com.goodgame.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,16 +33,6 @@ public class CategoryEntity extends BaseEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-		
-//	@OneToMany(mappedBy = "category")
-//	private List<GameEntity> games = new ArrayList<>();
-//	
-//	public List<GameEntity> getGames() {
-//		return games;
-//	}
-//	public void setGames(List<GameEntity> games) {
-//		this.games = games;
-//	}
 	
 	public int getStatus() {
 		return status;
@@ -52,7 +41,7 @@ public class CategoryEntity extends BaseEntity {
 		this.status = status;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "categories")
+	@ManyToMany(fetch = FetchType.LAZY,mappedBy = "categories")
 	private Set<GameEntity> games = new HashSet<>();
 	
 	 public Set<GameEntity> getGames() { return games; } public void

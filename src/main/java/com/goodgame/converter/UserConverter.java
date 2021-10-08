@@ -1,9 +1,7 @@
 package com.goodgame.converter;
 
 import org.springframework.stereotype.Component;
-
 import com.goodgame.constant.SystemConstant;
-import com.goodgame.dto.RoleDTO;
 import com.goodgame.dto.UserDTO;
 import com.goodgame.entity.RoleEntity;
 import com.goodgame.entity.UserEntity;
@@ -19,9 +17,10 @@ public class UserConverter {
 		result.setEmail(userEntity.getEmail());
 		result.setAge(userEntity.getAge());
 		result.setAddress(userEntity.getAddress());
-		for(RoleEntity role : userEntity.getRoles()) {
-			result.setUserCode(role.getCode());
-		}
+		/*
+		 * for(RoleEntity role : userEntity.getRoles()) {
+		 * result.setUserCode(role.getCode()); }
+		 */
 		result.setStatus(SystemConstant.ACTIVE_STATUS);
 		return result;
 	}
@@ -34,9 +33,11 @@ public class UserConverter {
 		result.setEmail(userDTO.getEmail());
 		result.setAge(userDTO.getAge());
 		result.setAddress(userDTO.getAddress());
-		for(int i = 0; i < result.getRoles().size(); i++) {
-			result.getRoles().get(i).setCode(userDTO.getUserCode());
-		}
+		
+//		for(int i = 0; i < result.getRoles().size(); i++) {
+//			result.getRoles().get(i).setCode("USER");
+//		}
+		
 		result.setStatus(SystemConstant.ACTIVE_STATUS);
 		return result;
 	}

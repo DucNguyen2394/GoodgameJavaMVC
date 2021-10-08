@@ -2,13 +2,11 @@ package com.goodgame.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.goodgame.constant.SystemConstant;
 import com.goodgame.converter.UserConverter;
 import com.goodgame.dto.UserDTO;
@@ -44,12 +42,12 @@ public class UserServiceImpl implements UserService {
 		return dtos;
 	}
     
-	@Override
-	public void save(UserEntity user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new ArrayList<>(roleRepository.findAll()));
-        userRepository.save(user);
-	}
+//	@Override
+//	public void save(UserEntity user) {
+//		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        user.setRoles(new ArrayList<>(roleRepository.findAll()));
+//        userRepository.save(user);
+//	}
 	
 	@Override
 	public UserDTO findByUsername(String username) {
@@ -60,20 +58,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserDTO save(UserDTO dto) {
-		RoleEntity roleEntity = roleRepository.findOneByCode(dto.getUserCode());
+					
 		UserEntity userEntity = new UserEntity();
 		
 		if(dto.getId() != null) {
 			UserEntity oldUser = userRepository.findOne(dto.getId());
-			oldUser.getRoles().add(roleEntity);
+
+			for(String item : dto.getUserCode()) {
+				RoleEntity roleEntity = roleRepository.findOneByCode(item);
+				oldUser.getRoles().add(roleEntity);
+			}
+
 			userEntity = userConverter.toEntity(oldUser,dto);
 			dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 		}else {
 			userEntity = userConverter.toEntity(dto);
-			userEntity.getRoles().add(roleEntity);
+
+			for(String item : dto.getUserCode()) {
+				RoleEntity roleEntity = roleRepository.findOneByCode(item);
+				userEntity.getRoles().add(roleEntity);					
+			}
+			
 			dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 		}
 		return userConverter.toDto(userRepository.save(userEntity));
+
 	}
 	
 	public void updateResetPasswordToken(String token, String email) {
@@ -123,10 +132,46 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> dtos = new ArrayList<UserDTO>();
 		List<UserEntity> entities = userRepository.findAll(pageable).getContent();
 		for(UserEntity entity : entities) {
-			UserDTO userDTO = userConverter.toDto(entity);
-			dtos.add(userDTO);
+			if(entity.getStatus() == SystemConstant.INACTIVE_STATUS) {
+				UserDTO userDTO = userConverter.toDto(entity);
+				dtos.add(userDTO);				
+			}
 		}
 		return dtos;
+	}
+
+	@Override
+	public void deleteTrash(long[] ids) {
+		for(long id : ids) {
+			userRepository.delete(id);
+		}
+	}
+
+	@Override
+	public UserDTO restore(long[] ids) {
+		UserEntity userEntity = new UserEntity();
+		for(long id : ids) {
+			userEntity = userRepository.findOne(id);			
+			userEntity.setStatus(SystemConstant.ACTIVE_STATUS);
+		}
+		return userConverter.toDto(userRepository.save(userEntity));
+	}
+
+	@Override
+	@Transactional
+	public UserDTO create(UserDTO dto) {
+		dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+		UserEntity entity = userConverter.toEntity(dto);
+		RoleEntity role = new RoleEntity();
+
+		if(role.getCode() == null) {
+			role = roleRepository.findOneByCode(("USER"));
+			entity.getRoles().add(role);			
+		}
+		if(role.getCode().equalsIgnoreCase("ADMIN") && role.getId() == 1 && role.getName().equalsIgnoreCase("admin")) {
+			return null;
+		}
+		return userConverter.toDto(userRepository.save(entity));
 	}
 
 }

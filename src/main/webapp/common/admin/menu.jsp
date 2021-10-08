@@ -9,6 +9,7 @@
 	</a>
 		<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 			<h6 class="dropdown-header">Login Screens:</h6>
+			<a class="dropdown-item" href="${pageContext.request.contextPath}/">Home</a> 
 			<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/game/list?page=1&limit=10">Game</a> 
 			<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/user/list?page=1&limit=10">User</a>
 			<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/category/list?page=1&limit=10">Category</a>

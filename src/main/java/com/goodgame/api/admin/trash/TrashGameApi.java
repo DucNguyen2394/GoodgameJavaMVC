@@ -16,7 +16,7 @@ public class TrashGameApi {
 	GameService gameService;
 	
 	@PostMapping("api/game/trash")
-	public GameDTO restoreGame(@RequestBody long[] ids) {
+	public GameDTO restoreGame(@RequestBody long ids) {
 		return gameService.restore(ids);
 	}
 	

@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 		List<CategoryDTO> result = new ArrayList<>();
 		List<CategoryEntity> entities = categoryRepository.findAll(pageable).getContent();
 		for(CategoryEntity categoryEntity : entities) {
-			if(categoryEntity.getStatus() == 1) {
+			if(categoryEntity.getStatus() == SystemConstant.ACTIVE_STATUS) {
 				CategoryDTO dto = categoryConverter.toDto(categoryEntity);
 				result.add(dto);
 			}
@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<CategoryDTO> findAl() {
+	public List<CategoryDTO> find() {
 		List<CategoryDTO> result = new ArrayList<>();
 		List<CategoryEntity> entities = categoryRepository.findAll();
 		for(CategoryEntity item : entities) {
@@ -88,7 +88,7 @@ public class CategoryServiceImpl implements CategoryService {
 		List<CategoryEntity> entities = categoryRepository.findAll(pageable).getContent();
 		
 		for(CategoryEntity categoryEntity : entities) {
-			if(categoryEntity.getStatus() == 0) {
+			if(categoryEntity.getStatus() == SystemConstant.INACTIVE_STATUS) {
 				CategoryDTO categoryDTO = categoryConverter.toDto(categoryEntity);
 				dtos.add(categoryDTO);
 			}

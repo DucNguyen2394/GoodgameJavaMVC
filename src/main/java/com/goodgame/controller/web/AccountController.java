@@ -2,6 +2,7 @@ package com.goodgame.controller.web;
 
 import java.io.UnsupportedEncodingException;
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.goodgame.dto.UserDTO;
 import com.goodgame.entity.UserEntity;
 import com.goodgame.repository.UserRepository;
 import com.goodgame.service.MailService;
@@ -45,6 +49,11 @@ public class AccountController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest req, HttpServletResponse res) {
+		String cookieName = "SPRING_SECURITY_REMEMBER_ME_COOKIE";
+		  Cookie cookie = new Cookie(cookieName, null);
+		  cookie.setMaxAge(0);
+		  cookie.setPath(StringUtils.hasLength(req.getContextPath()) ? req.getContextPath() : "/");
+		  res.addCookie(cookie);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null) {
 			new SecurityContextLogoutHandler().logout(req, res, auth);
@@ -59,9 +68,9 @@ public class AccountController {
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView register(UserDTO user) {
 		ModelAndView mav = new ModelAndView("/account/register");
-		mav.addObject("form", new UserEntity());
+		mav.addObject("user", user);
 		return mav;
 	}
 	

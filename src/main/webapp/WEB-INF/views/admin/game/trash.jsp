@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="" id="formSubmit" method="get">
+			<form action="<c:url value='/dashboard/game/trash?page=${gameDTO.page}&limit=${gameDTO.limit}'/>" id="formSubmit" method="get">
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable">
@@ -107,6 +107,7 @@
 		var currentPage = ${model.page};
 		var totalPage = ${model.totalPage};
 		
+		console.log(totalPage)
 		$(function () {
 	    window.pagObj = $('#pagination').twbsPagination({
 	        totalPages: totalPage,

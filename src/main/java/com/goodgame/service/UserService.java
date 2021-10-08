@@ -11,8 +11,6 @@ public interface UserService {
 	
 	List<UserDTO> findAll(Pageable pageable);
 	
-	void save(UserEntity user);
-
     UserDTO findByUsername(String username);
     
     UserDTO findById(long id);
@@ -28,6 +26,12 @@ public interface UserService {
     int getTotalItem();
     
     void delete(long[] ids);
-    
+        
     List<UserDTO> findTrash(Pageable pageable);
+    
+    void deleteTrash(long[] ids);
+    
+    UserDTO restore(long[] ids);
+    
+    UserDTO create(UserDTO dto);
 }

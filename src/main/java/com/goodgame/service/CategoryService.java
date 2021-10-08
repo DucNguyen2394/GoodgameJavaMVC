@@ -7,7 +7,7 @@ import com.goodgame.dto.CategoryDTO;
 public interface CategoryService {
 	List<CategoryDTO> findAll(Pageable pageable);
 	
-	List<CategoryDTO> findAl();
+	List<CategoryDTO> find();
 	
 	int getTotalItem();
 	

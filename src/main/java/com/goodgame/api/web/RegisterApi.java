@@ -1,6 +1,9 @@
 package com.goodgame.api.web;
 
 import java.io.IOException;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -24,38 +27,57 @@ public class RegisterApi {
 	@Autowired
 	UserRepository userRepository;
 	
+//	@PostMapping("/api/register")
+//	public RedirectView createAccount(Model model,
+//			UserEntity user,
+//			@RequestBody @Validated UserDTO userDTO,
+//			BindingResult result) throws IOException 
+//	{
+//		
+//		if(result.hasErrors()) {
+//			model.addAttribute("errors", result.getAllErrors());
+//			
+//			RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
+//			rv.setStatusCode(HttpStatus.BAD_REQUEST);
+//			return rv;
+//		}else if(!(userDTO.getPassword().equals(userDTO.getConfirmPassword()))) {
+//			RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
+//			rv.setStatusCode(HttpStatus.BAD_REQUEST);
+//			return rv;
+//		}
+//		user = userRepository.findOneByUsername(userDTO.getUsername());
+//			
+//			if(user != null) {	
+//				RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
+//				rv.setStatusCode(HttpStatus.BAD_REQUEST);
+//				return rv;			
+//			}else {	
+//
+//				userService.save(userDTO);	
+//				RedirectView rv = new RedirectView("http://localhost:8080/goodgame/login");
+//		        rv.setStatusCode(HttpStatus.OK);
+//
+//		        return rv;
+//			}
+//		}
+	
 	@PostMapping("/api/register")
-	public RedirectView createAccount(Model model,
+	public UserDTO createAcount(
+			@RequestBody @Valid UserDTO userDTO,
 			UserEntity user,
-			@RequestBody @Validated UserDTO userDTO,
-			BindingResult result) throws IOException 
+			BindingResult result,
+			Model model) 
 	{
-		
 		if(result.hasErrors()) {
-			model.addAttribute("errors", result.getAllErrors());
-			
-			RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
-			rv.setStatusCode(HttpStatus.BAD_REQUEST);
-			return rv;
-		}else if(!(userDTO.getPassword().equals(userDTO.getConfirmPassword()))) {
-			RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
-			rv.setStatusCode(HttpStatus.BAD_REQUEST);
-			return rv;
+			model.addAttribute("error", result.getAllErrors());
 		}
 		user = userRepository.findOneByUsername(userDTO.getUsername());
-			
-			if(user != null) {	
-				RedirectView rv = new RedirectView("http://localhost:8080/goodgame/account/register");
-				rv.setStatusCode(HttpStatus.BAD_REQUEST);
-				return rv;			
-			}else {	
-				userService.save(userDTO);	
-				RedirectView rv = new RedirectView("http://localhost:8080/goodgame/login");
-		        rv.setStatusCode(HttpStatus.OK); // set our own status code
-
-		        return rv;
-			}
+		if(user != null) {
+			model.addAttribute("error", "invalid!!!");
+			return null;
 		}
+		return userService.create(userDTO);
+	}
 }
 	
 

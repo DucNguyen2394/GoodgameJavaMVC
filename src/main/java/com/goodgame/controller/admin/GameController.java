@@ -17,7 +17,7 @@ import com.goodgame.service.GameService;
 import com.goodgame.service.PlatformService;
 import com.goodgame.util.MessageUtils;
 
-@Controller
+@Controller(value = "gameControllerOfAdmin")
 public class GameController {
 	
 	@Autowired
@@ -76,7 +76,7 @@ public class GameController {
     	  mav.addObject("message", message.get("message"));
     	  mav.addObject("alert", message.get("alert"));
       }
-      mav.addObject("categories", categoryService.findAl());
+      mav.addObject("categories", categoryService.find());
       mav.addObject("platforms", platformService.findAll());
       mav.addObject("model", model);
       return mav;

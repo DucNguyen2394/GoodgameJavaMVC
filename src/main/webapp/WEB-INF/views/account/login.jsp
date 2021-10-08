@@ -52,7 +52,9 @@
 							</div>
 							<div class="form-group d-md-flex">
 								<div class="w-50 text-left">
-									<label class="checkbox-wrap checkbox-primary mb-0">Remember Me <input type="checkbox" checked> <span class="checkmark"></span> </label>
+									<label class="checkbox-wrap checkbox-primary mb-0">Remember Me 
+										<input type="checkbox" name="remember-me"> <span class="checkmark"></span> 
+									</label>
 								</div>
 								<div class="w-50 text-md-right">
 									<a href="${pageContext.request.contextPath}/forgot_password">Forgot Password</a>

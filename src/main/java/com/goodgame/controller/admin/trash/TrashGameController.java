@@ -16,7 +16,7 @@ import com.goodgame.dto.GameDTO;
 import com.goodgame.service.GameService;
 import com.goodgame.util.MessageUtils;
 
-@Controller
+@Controller(value = "trashGameOfAdmin")
 public class TrashGameController {
 
 	@Autowired

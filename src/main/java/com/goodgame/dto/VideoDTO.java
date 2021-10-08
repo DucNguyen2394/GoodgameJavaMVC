@@ -10,7 +10,9 @@ public class VideoDTO extends AbstractDTO<VideoDTO>{
 	
 	private String thumbnail;
 	
-	private GameDTO gameDTO;
+	private String gameName;
+	
+	private int status;
 
 	public String getName() {
 		return name;
@@ -44,11 +46,20 @@ public class VideoDTO extends AbstractDTO<VideoDTO>{
 		this.thumbnail = thumbnail;
 	}
 
-	public GameDTO getGameDTO() {
-		return gameDTO;
+	public String getGameName() {
+		return gameName;
 	}
 
-	public void setGameDTO(GameDTO gameDTO) {
-		this.gameDTO = gameDTO;
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 }

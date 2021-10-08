@@ -27,26 +27,32 @@
 								username or password incorrect
 							</div>
 						</c:if>
-						<form:form action="register" id="formSubmit" class="signin-form" method="POST" modelAttribute="user">
+						<form:form action="" id="formSubmit" class="signin-form" method="POST" modelAttribute="user">
 							<div class="form-group mb-3">
 								<label class="label" for="name">Username</label> 
-								<input type="text" class="form-control" placeholder="Username" name="username" required>
+								<form:input path="username" type="text" class="form-control" placeholder="Username" />
+								<span class="error">${error}</span>
+							</div>
+							<div class="form-group mb-3">
+								<label class="label" for="name">Fullname</label> 
+								<form:input path="fullname" type="text" class="form-control" placeholder="Fullname" />
+								<span class="error">${error}</span>
 							</div>
 							<div class="form-group mb-3">
 								<label class="label" for="name">Email</label> 
-								<input type="email" class="form-control" placeholder="Email" name="email" required>
+								<form:input path="email" type="email" class="form-control" placeholder="Email" />
 							</div>
 							<div class="form-group mb-3">
 								<label class="label" for="name">Age</label> 
-								<input type="text" class="form-control" placeholder="Age" name="age" required>
+								<form:input path="age" type="text" class="form-control" placeholder="Age" />
 							</div>
 							<div class="form-group mb-3">
 								<label class="label" for="password">Password</label> 
-								<input type="password" class="form-control" placeholder="Password" name="password" required/>
+								<form:input path="password" type="password" class="form-control" placeholder="Password" />
 							</div>
 							<div class="form-group mb-3">
 								<label class="label" for="password">Re-Password</label> 
-								<input type="password" class="form-control" placeholder="Re-Password" name="re-password" required />
+								<form:input path="confirmPassword" type="password" class="form-control" placeholder="Re-Password"/>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
@@ -60,32 +66,32 @@
 	<script>	
 		 $('#formSubmit').on('submit', function (e) {
 			e.preventDefault();
-			console.log("ok");
 		    var data = {};
 		    var formData = $('#formSubmit').serializeArray();
 		    $.each(formData, function (i, v) {
 	            data["" + v.name + ""] = v.value;
+	            console.log( "name = " , v.name)
 	        });
 		    
 		    addUser(data)
 		});
 		
 		 function addUser(data) {
+			console.log(data)
 			$.ajax({
 	            url: 'http://localhost:8080/goodgame/api/register',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
+	            success: function (result) {
+	            	result.preventDefault()
+	            	window.location.href = "http://localhost:8080/goodgame/login"; 
+	            },
 	            error: function (error) {
-	            	console.log(error)
-	            	if(error.status == 400){
-		            	const err = document.querySelector(".error")
-		            	err.textContent = error.statusText
-		            	err.style.color = "red"		
-	            	}else if(error.status == 200){	
-		            	window.location.href = "http://localhost:8080/goodgame/login";             		
-	            	}
+	            	const err = document.querySelector(".error")
+	            	err.textContent = "invalid"
+		            err.style.color = "red"	
 	            }
 	        });
 		}    

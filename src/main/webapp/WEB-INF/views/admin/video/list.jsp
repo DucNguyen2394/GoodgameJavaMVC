@@ -1,13 +1,23 @@
 <%@include file="/common/Taglib.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<c:url var="videoAPI" value="http://localhost:8080/goodgame/api/video" />
+<c:url var="videoURL" value="http://localhost:8080/goodgame/admin/video/list" />
+<c:url var="trashURL" value="/admin/video/trash"/>
 
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-			<li class="breadcrumb-item active">Tables</li>
-		</ol>
+		<div class="d-flex justify-content-between">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+				<li class="breadcrumb-item active">Tables</li>						
+			</ol>	
+			<a class="mt-2 mr-4" data-toggle="tooltip" title='add game' href='${trashURL}'>
+				<span>
+					<i class="fas fa-trash bigger-110 purple"> Recycle bin</i>
+				</span>
+			</a>			
+		</div>
 		
 		<c:if test="${not empty message }">
 			<div class="alert alert-${alert}">
@@ -22,8 +32,8 @@
 					<div class="table-btn-controls">
 						<div class="pull-right tableTools-container">
 							<div class="dt-buttons btn-overlap btn-group">
-								<c:url var="createNewURL" value="/admin/game/edit"/>
-									<a class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='add game' href='${createNewURL}'>
+								<c:url var="createVideoURL" value="/admin/video/edit"/>
+									<a class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='add game' href='${createVideoURL}'>
 										<span>
 											<i class="fa fa-plus-circle bigger-110 purple"> Create video</i>
 										</span>
@@ -45,10 +55,10 @@
 						<table class="table table-bordered" id="dataTable">
 							<thead>
 								<tr>
-									<th><input type="checkbox" id="checkAll"></th>
+									<th><input type="checkbox" id="checkAll" class="selectAll"></th>
 									<th>Name</th>
-									<th>Title</th>
-									<th>Description</th>
+									<th>Link</th>
+									<th>Episode</th>
 									<th>update video</th>
 								</tr>
 							</thead>
@@ -56,8 +66,8 @@
 								<tr>
 									<th></th>
 									<th>Name</th>
-									<th>Title</th>
-									<th>Description</th>
+									<th>Link</th>
+									<th>Episode</th>
 									<th>update video</th>
 								</tr>
 							</tfoot>
@@ -66,13 +76,14 @@
 									<tr>
 										<td><input class="checkbox" onclick="toggleBtn()" type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
 										<td>${item.name}</td>
-
+										<td>${item.link}</td>
+										<td>${item.episode}</td>
 										<td>
-<%-- 											<c:url var="updateNewURL" value="/admin/game/edit">
+ 											<c:url var="updateVideoURL" value="/admin/video/edit">
 												<c:param name="id" value="${item.id}"/>															
-											</c:url> --%>																
+											</c:url>																
 											<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-												title="update game" href='${updateNewURL}'><i class="fas fa-pen-alt"> Update</i>
+												title="update video" href='${updateVideoURL}'><i class="fas fa-pen-alt"> Update</i>
 											</a>
 										</td>
 									</tr>
@@ -119,4 +130,56 @@
 	        console.info(page + ' (from event listening)');
 	    });
 	}); 
+	 
+	 function toggleBtn(){		  
+			const allCheckBox = document.querySelectorAll('.checkbox');
+			console.log(allCheckBox)
+			const deleteBtn = document.querySelector('.btn-delete');
+			deleteBtn.disabled = true;
+			allCheckBox.forEach(checkBox => {
+				if (checkBox.checked) {
+					deleteBtn.disabled = false;
+				}
+			})
+		}
+		
+		$('.selectAll').click(function() {
+		    $(this.form.elements).filter(':checkbox').prop('checked', this.checked);
+		    toggleBtn();
+		})
+		
+		 function warningBeforeDelete(){
+			swal({
+			    title: "Are you sure to delete this  of ?",
+			    text: "Delete Confirmation?",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DC3545",
+			    confirmButtonText: "Delete",
+			    closeOnConfirm: false
+			  },
+			  function() {
+				  	const data = $('tbody input[type=checkbox]:checked').map(function (){
+				  		return $(this).val()
+				  	}).get();
+			    $.ajax({
+			        url: '${videoAPI}',
+			        type: "DELETE",
+			        contentType: 'application/json',
+			        data: JSON.stringify(data),
+			        success: function(result) {
+			        	window.location.href = "${videoURL}?page=1&limit=10&message=delete_success";
+
+			        }
+			      })
+			      .done(function(result) {
+			        swal("Deleted!", "Data successfully Deleted!", "success");
+			        
+			      })
+			      .error(function(result) {
+			        swal("Oops", "We couldn't connect to the server!", "error");
+			      });
+			  }
+			);
+		} 
 </script>

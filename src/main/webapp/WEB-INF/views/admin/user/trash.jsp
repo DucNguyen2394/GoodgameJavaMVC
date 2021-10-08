@@ -73,7 +73,7 @@
 											<button id="btnRestore" type="button" onclick="warningBeforeRestore()"
 												class="dt-button buttons-html5 btn btn-white btn-primary btn-bold " data-toggle="tooltip" title='Restore user'>
 												<span>
-													<input type="hidden" id="checkbox_${item.id}" value="${item.id}" />
+													<input type="hidden" value="${item.id}" />
 													<i class="fas fa-trash-restore"> Restore game</i>
 												</span>
 											</button>								

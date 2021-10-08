@@ -2,27 +2,30 @@ package com.goodgame.dto;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class UserDTO extends AbstractDTO<UserDTO>{
 	@NotEmpty
+	@NotNull
 	private String username;
 	@NotNull
 	private String password;
 	
 	private String fullname;
+	@NotNull
 	private String email;
 	private Integer age;
 	
 	private String address;
 	private Integer status;
 	private String photo;
-	
+	@NotNull
 	private String confirmPassword;
-	private String userCode;
+	
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	private String[] userCode;
 	
 	private Set<RoleDTO> roles = new HashSet<RoleDTO>();
 	
@@ -87,10 +90,10 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	public void setRoles(Set<RoleDTO> roles) {
 		this.roles = roles;
 	}
-	public String getUserCode() {
+	public String[] getUserCode() {
 		return userCode;
 	}
-	public void setUserCode(String userCode) {
+	public void setUserCode(String[] userCode) {
 		this.userCode = userCode;
 	}
 }

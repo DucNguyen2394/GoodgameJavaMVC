@@ -30,13 +30,13 @@
 							</c:if>
 							<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model" enctype="multipart/form-data">
 								<div class="form-group">
-									<div class="col-sm-6">
-										<form:select path="userCode" class="form-control" id="userCode"  name="userCode" multiple="multiple">
-											<form:option value="" label="-- Choose role --" disabled="disabled"/>
-												<c:forEach var="item" items="${role}">
-												<option>${item.code}</option>										
-											</c:forEach>
-										</form:select>
+									<div class="col-sm-6">																	        
+								       <c:forEach items="${roles}" var="role">
+								            <tr>
+								                <td><form:checkbox path="userCode" value="${role.code}" label="${role.id}" id="roles"/></td>
+								                <td><c:out value="${role.name}" /></td>
+								            </tr>
+								        </c:forEach>								        
 									</div>
 								</div>
 								<div class="form-group">
@@ -128,7 +128,19 @@
 		var file_name = $('input[type="file"].thumbnail').val().replace(/\\/g, '/').replace(/.*\//, '')
 		file_name_path = 'C:\\usr\\var\\thumbnail\\' + file_name;
 		
-		data = {...data, thumbnail: file_name_path}
+  		const select = document.querySelectorAll('#roles');
+ 		
+  		console.log(select)
+  		
+		const roleArr = [];
+		for (let a = 0; a < select.length; a++)
+			{
+				if(select[a].checked)
+					roleArr.push(select[a].value)
+			}
+		
+		data = {...data, thumbnail: file_name_path, userCode: roleArr}
+		console.log(data)
 		$.ajax({
             url: '${userAPI}',
             type: 'POST',
@@ -136,10 +148,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
+            	result.preventDefault()
             	window.location.href = " ${userEditURL}?id="+ result.id+ "&message=insert_success ";
             },
             error: function (error) {
-            	
             	window.location.href = "${userURL}?page=1&limit=10&message=error_system";
             }
         });

@@ -40,7 +40,7 @@ public class CategoryController {
 	      
 	      model.setListResult(categoryService.findAll(pageable));
 	      model.setTotalItem(categoryService.getTotalItem());
-	      model.setTotalPage((int) Math.ceil((double) model.getTotalItem() /model.getLimit()));  
+	      model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getLimit()));  
 	      			
 			 HttpSession session = request.getSession();
 			 if(request.getParameter("message") != null) 

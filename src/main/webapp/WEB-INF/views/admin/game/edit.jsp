@@ -41,12 +41,10 @@
 										<form:select path="categoryCode" class="form-control" id="categoryCode"  name="categoryCode" multiple="multiple">
 											<form:option value="" label="-- Choose category --" disabled="disabled"/>
 											<c:forEach var="item" items="${categories}">
-											    <option>${item.code}</option>>											
+											    <option>${item.code}</option>										
 											</c:forEach>
 										</form:select>
-										
-										<%-- <form:checkboxes path="categories" element="div" items="${categories}" itemValue="id" itemLabel="name"/> --%>
-										
+																				
 										<%-- <c:forEach items="${categories}" var="item">
 								            <tr>
 								                <td><form:checkbox path="categories" value="${item.code}" /></td>							                
@@ -155,9 +153,7 @@
 				if (select.options[a].value)
 					categoryArr.push(select.options[a].value)
 				}
-			
-			console.log(categoryArr)
-			
+						
 			data = {...data, thumbnail: file_name_path,categoryArr}
 			$.ajax({
 	            url: '${gameAPI}',

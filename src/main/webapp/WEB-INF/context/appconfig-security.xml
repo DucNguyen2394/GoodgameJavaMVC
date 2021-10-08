@@ -10,6 +10,7 @@
       <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
     
     	<intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN')" />
+    	<intercept-url pattern="/dashboard/**" access="hasAnyRole('ADMIN')" />
     	
     	<access-denied-handler error-page="/accessDenied" />
     	
@@ -20,7 +21,14 @@
                      authentication-success-handler-ref="customSuccessHandler"
                      authentication-failure-url="/login?incorrectAccount"/>
         <session-management invalid-session-url="/login?sessionTimeout"/>
+        
+        <remember-me 
+        	key="uniqueAndSecret"
+        	remember-me-parameter="remember-me" 
+        	token-validity-seconds="86400"/>
+        	
         <logout delete-cookies="JSESSIONID"/>
+              
     </http>
     
     <authentication-manager >

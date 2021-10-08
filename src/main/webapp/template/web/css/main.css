@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&display=swap');
+.App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Poppins';
+  background: #333;
+}
+
+* ::selection {
+  background: #dc3545;
+  color: #fff
+}
+
+li, ul {
+  list-style: none;
+  margin-bottom: 0
+}
+
+p {
+  margin: 0
+}
+
+a {
+  text-decoration: none;
+  color: #FFF !important;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: #dc3545 !important;
+  transition: all 0.4s ease;
+}
+
+.btn-color {
+  color: #dc3545;
+  border: 1px solid;
+  border-color: #dc3545;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn-color::after {
+  position: absolute;
+  content: "";
+  left: auto;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: 1px solid;
+  border-color: #dc3545;
+  z-index: -1;
+  transition: all .5s ease-in-out;
+  width: 100%
+}
+
+.btn-color:hover {
+  color: #FFF;
+  background-color: #dc3545;
+  transition: all .5s ease-in-out;
+}
+
+.btn-active{
+  color: #FFF;
+  background-color: #dc3545
+}
+
+.btn {
+  position: relative;
+  font-family: Signika, sans-serif;
+  display: inline-block;
+  outline: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 19px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 0
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none
+}
+
+.btn-transparent {
+  color: #dc3545;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-transparent::after {
+  border-radius: 5px;
+  background-color: #dc3545;
+  position: absolute;
+  content: "";
+  left: auto;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: all .5s ease-in-out;
+  width: 100%
+}
+
+.btn-transparent:hover {
+  color: #fff
+}
+
+.btn-transparent:hover::after {
+  width: 0;
+}

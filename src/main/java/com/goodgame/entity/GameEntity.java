@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +21,9 @@ public class GameEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "code")
+	private String code;
+	
 	@Column(name = "title")
 	private String title;
 	
@@ -34,7 +36,7 @@ public class GameEntity extends BaseEntity {
 	@Column(name = "thumbnail")
 	private String thumbnail;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "game_category", 
 			joinColumns = @JoinColumn(name = "gameId"), 
@@ -105,6 +107,12 @@ public class GameEntity extends BaseEntity {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

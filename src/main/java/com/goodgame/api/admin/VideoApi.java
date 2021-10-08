@@ -1,41 +1,33 @@
 package com.goodgame.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.goodgame.dto.VideoDTO;
 import com.goodgame.service.VideoService;
 
-@Controller
+@RestController
 public class VideoApi {
-
-	@Autowired
-	private VideoService videoService;
 	
-	@GetMapping("admin/video/list")
-	String showList(Model model, 
-			@RequestParam("page") int page, 
-			@RequestParam("limit") int limit,
-			VideoDTO videoDTO) 
-	{
-		
-		videoDTO.setPage(page);
-		videoDTO.setLimit(limit);
-		
-		Pageable pageable = new PageRequest(page - 1,limit);
-		videoDTO.setListResult(videoService.findAll(pageable));
-		
-		videoDTO.setTotalItem(videoService.getTotalItem());
-		videoDTO.setTotalPage( (int) Math.ceil(videoDTO.getTotalItem() / videoDTO.getLimit()));
-		
-		
-		model.addAttribute("model", videoDTO);
-		return "admin/video/list";
+	@Autowired
+	VideoService videoService;
+	
+	@PostMapping("api/video")
+	public VideoDTO createVideo(@RequestBody VideoDTO videoDTO) {
+		return videoService.save(videoDTO);
 	}
 	
+	@PutMapping("api/video")
+	public VideoDTO editVideo(@RequestBody VideoDTO videoDTO) {
+		return videoService.save(videoDTO);
+	}
+	
+	@DeleteMapping("api/video")
+	public void deleteVideo(@RequestBody long[] ids) {
+		videoService.delete(ids);
+	}
 }

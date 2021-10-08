@@ -1,5 +1,6 @@
 package com.goodgame.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -10,18 +11,25 @@ import javax.persistence.Table;
 @Table(name = "video")
 public class VideoEntity extends BaseEntity{
 	
+	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "link")
 	private String link;
 	
+	@Column(name = "episode")
 	private String episode; 
 	
+	@Column(name = "thumbnail")
 	private String thumbnail;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "game_id")
 	private GameEntity game;
 
+	@Column(name = "status")
+	private int status;
+	
 	public String getName() {
 		return name;
 	}
@@ -62,5 +70,12 @@ public class VideoEntity extends BaseEntity{
 		this.thumbnail = thumbnail;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	
 }

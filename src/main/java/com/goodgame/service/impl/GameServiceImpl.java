@@ -1,12 +1,15 @@
 package com.goodgame.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.goodgame.constant.SystemConstant;
 import com.goodgame.converter.GameConverter;
 import com.goodgame.dto.GameDTO;
@@ -34,6 +37,17 @@ public class GameServiceImpl implements GameService {
 	@Autowired
 	private PlatformRepository platformRepository;
 	
+	@Override
+	public Map<String,String> findAll(){
+		Map<String,String> result = new HashMap<>();
+		List<GameEntity> entites = gameRepository.findAll();
+		for(GameEntity entity : entites) {
+			result.put(entity.getName(), entity.getName());
+		}
+		return result;
+	}
+	
+	@Override
 	public List<GameDTO> findAll(Pageable pageable) {
 		List<GameDTO> dtos = new ArrayList<>();
 		
@@ -42,6 +56,7 @@ public class GameServiceImpl implements GameService {
 		for(GameEntity gameEntity : entities) {
 			if(gameEntity.getStatus() == SystemConstant.ACTIVE_STATUS) {
 				GameDTO gameDTO = gameConverter.toDto(gameEntity);
+				System.err.println("name : " + gameDTO.getName());
 				dtos.add(gameDTO);
 			}
 		}
@@ -58,9 +73,7 @@ public class GameServiceImpl implements GameService {
 	@Transactional
 	public GameDTO save(GameDTO dto) {
 		CategoryEntity categoryEntity = categoryRepository.findOneByCode(dto.getCategoryCode());
-//		for(int i = 0; i < dto.getCategoryCode().length; i++) {
-//			categoryEntity = categoryRepository.findOneByCode(dto.getCategoryCode()[i]);
-//		}
+
 		PlatformEntity platformEntity = platformRepository.findOneByCode(dto.getPlatformCode());
 		GameEntity gameEntity = new GameEntity();
 		if(dto.getId() != null) {
@@ -78,8 +91,12 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	public int getTotalItem() {
-		
-		return (int) gameRepository.count();
+		return (int) gameRepository.countAppear();
+	}
+	
+	@Override
+	public int getTotalItemTrash() {
+		return (int) gameRepository.countDelete();
 	}
 	
 	@Override
@@ -106,13 +123,11 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	@Override
-	public GameDTO restore(long[] ids) {
+	public GameDTO restore(long id) {
 		GameEntity gameEntity = new GameEntity();
-		for(long id : ids) {
-		 	gameEntity = gameRepository.findOne(id);
+		gameEntity = gameRepository.findOne(id);
 			
-		 	gameEntity.setStatus(SystemConstant.ACTIVE_STATUS);			
-		}
+		gameEntity.setStatus(SystemConstant.ACTIVE_STATUS);			
 		return gameConverter.toDto(gameRepository.save(gameEntity));			
 	}
 
@@ -123,5 +138,42 @@ public class GameServiceImpl implements GameService {
 			gameEntity = gameRepository.findOne(id);
 			gameEntity.setStatus(SystemConstant.INACTIVE_STATUS);
 		}
+	}
+
+	@Override
+	public List<GameDTO> findTop12ByOrderByCreateDateDesc() {
+		List<GameDTO> games = new ArrayList<GameDTO>();
+		List<GameEntity> entities = gameRepository.findTop12ByOrderByCreateDateDesc();
+		int i = 0;
+		for(GameEntity gameEntity : entities) {
+			GameDTO gameDTO = gameConverter.toDto(gameEntity);
+			games.add(gameDTO);			
+			i++;
+			if(i == SystemConstant.FEATURED) break;
+		}
+		
+		return games;
+	}
+
+	@Override
+	public List<GameDTO> findByNameIn(Set<String> names) {
+		List<GameDTO> games = new ArrayList<GameDTO>();
+		List<GameEntity> entities = gameRepository.findByNameIn(names);
+		for(GameEntity entity : entities) {
+			GameDTO game = gameConverter.toDto(entity);
+			games.add(game);
+		}
+		return games;
+	}
+	
+	@Override
+	public List<GameDTO> findByIdIn(Set<Long> id) {
+		List<GameDTO> games = new ArrayList<GameDTO>();
+		List<GameEntity> entities = gameRepository.findByIdIn(id);
+		for(GameEntity entity : entities) {
+			GameDTO game = gameConverter.toDto(entity);
+			games.add(game);
+		}
+		return games;
 	}
 }
